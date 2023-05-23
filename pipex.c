@@ -6,7 +6,15 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/05/23 15:15:23 by user             ###   ########.fr       */
+/*   Updated: 2023/05/23 15:22:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
+
+int main(int argc, char** argv)
+{
+    if(argc != 5)
+        return (0);
+    return (0);
+}
