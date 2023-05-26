@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 17:25:09 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:49:35 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 int main(int argc, char** argv)
 {
-	int fd;
-	int fd1;
-	char **cmd1;
-	char **cmd2;
-	
-	//init struct
-	//check if argument have no problem
-	//execute
-	//free(all)
+	t_pipex pipex;
 
-	//cmd1 = ft_split(argv[2],' ');
-	
-	
-	
-	//cmd2 = ft_split(argv[3],' ');
+	if (argc != 5)	
+		return (0);
+
+	pipex = init_pipex(pipex, argv);
+	check_args(pipex);
+	//execute the comand use fork , execve , pipe
+	exit_program(pipex);
 	return (0);
 }
