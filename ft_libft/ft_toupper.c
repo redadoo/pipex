@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/17 14:35:20 by evocatur          #+#    #+#             */
+/*   Updated: 2023/02/03 14:45:21 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
-
-
-#endif
+int	ft_toupper(int ch)
+{
+	if (ch >= 97 && ch <= 122)
+	{
+		ch = ch - 32;
+		return (ch);
+	}
+	return (ch);
+}

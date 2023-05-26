@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/05/23 15:22:43 by user             ###   ########.fr       */
+/*   Updated: 2023/05/26 16:19:55 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int main(int argc, char** argv)
 {
-    if(argc != 5)
-        return (0);
-    return (0);
+	char **args;
+
+	args = ft_split(argv[2],' ');
+	ft_printf("\n %s \n", args[0]);
+	argc = 0;
+	return (0);
 }

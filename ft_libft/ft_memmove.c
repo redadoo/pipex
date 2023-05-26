@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/17 14:20:48 by evocatur          #+#    #+#             */
+/*   Updated: 2023/02/07 17:27:59 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	char			*src2;
+	char			*dst2;
+	unsigned int	i;
 
-
-#endif
+	i = 0;
+	src2 = (char *)src;
+	dst2 = (char *)dst;
+	if (!dst && !src)
+		return (dst);
+	if (src < dst)
+	{
+		src2 = src2 + n - 1;
+		dst2 = dst2 + n - 1;
+		while (n--)
+			*dst2-- = *src2--;
+	}
+	else if (src >= dst)
+	{
+		while (n--)
+			*dst2++ = *src2++;
+	}
+	return (dst);
+}

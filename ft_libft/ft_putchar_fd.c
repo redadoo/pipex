@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/25 14:09:39 by evocatur          #+#    #+#             */
+/*   Updated: 2023/05/26 16:17:22 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
-
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	(void)write(fd, &c, 1);
+}

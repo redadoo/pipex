@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/19 11:43:11 by evocatur          #+#    #+#             */
+/*   Updated: 2023/02/11 15:26:01 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
+char	*ft_strrchr(const char *s, int c)
+{
+	char	*ischarfind;
 
-
-#endif
+	ischarfind = NULL;
+	if (s != NULL)
+	{
+		while (*s)
+		{
+			if (*s == (char)c)
+				ischarfind = (char *)s;
+		s++;
+		}
+	}
+	if ((char)c == *s)
+		ischarfind = (char *)s;
+	return (ischarfind);
+}

@@ -1,24 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_printf_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/02/17 15:47:37 by evocatur          #+#    #+#             */
+/*   Updated: 2023/05/18 15:31:18 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
+int	printstring(char *s)
+{
+	int	i;
 
+	i = 0;
+	if (s == NULL)
+	{
+		return (write(1, "(null)", 6));
+	}
+	while (*s)
+	{
+		i += (int)write(1, s, 1);
+		
+		s++;
+	}
+	return (i);
+}
 
-#endif
+int	printchars(int c)
+{
+	char	i;
+
+	i = (char)c;
+	return (write(1, &i, 1));
+}
+
+int	printdigit(int n)
+{
+	int		i;
+	char	*s;
+
+	s = ft_itoa(n);
+	i = printstring(s);
+	free(s);
+	return (i);
+}

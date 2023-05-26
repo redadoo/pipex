@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 15:55:43 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/17 13:48:37 by evocatur          #+#    #+#             */
+/*   Updated: 2023/02/06 15:07:21 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-#define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdlib.h>
-# include "ft_libft/libft.h"
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char			*copy1;
+	char			*copy2;
+	unsigned int	i;
 
-
-#endif
+	copy1 = (char *)src;
+	copy2 = (char *)dst;
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (i != n)
+	{
+		copy2[i] = copy1[i];
+		i++;
+	}
+	return (dst);
+}

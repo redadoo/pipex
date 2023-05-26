@@ -3,65 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
+#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/05/23 15:19:43 by user             ###   ########.fr        #
+#    Updated: 2023/05/26 16:18:43 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRC = $(MAIN_SRC)
+SRCS = $(LIBFT_SRC) $(MAIN_SRC)
+
+
+LIBFT_SRC = ft_libft/*.c
 
 MAIN_SRC = *.c
 
 OBJ = *.o
 
-NONE='\033[0m'
-GREEN='\033[32m'
-GRAY='\033[2;37m'
-CURSIVE='\033[3m'
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Linux)
-endif
-
-ifeq ($(UNAME_S),Darwin)
-endif
-
-FLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo $(CURSIVE) $(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	@gcc $(FLAGS) $(OBJ) -o $(NAME)
+	@${CC} $(FLAGS) $(OBJ) -o $(NAME)
 	@echo $(GREEN)"- Compiled -"$(NONE)
-	@rm -rf $(OBJ)
+	@${RM} $(OBJ)
 	
-$(OBJ): $(SRC)
+$(OBJ): $(SRCS)
 	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
-	@gcc -c $(SRC)
+	@${CC} -c $(SRCS)
 
 exe: all
-	@echo "     - Executing $(NAME)... \n"
-	@./$(NAME)
+	@echo "     - Executing $(NAME)..."
+	@./$(NAME) infile "ls -l" "wc -l" outfile
 	@echo "\n     - Done -"
 
-leaks: all
-	@leaks --atExit -- ./$(NAME) 
-
-norm:
-	@norminette $(SRC)
-
-clean:
-	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
-	@rm -rf $(OBJ)
+clean: 
+	@${RM} ${OBJ}
 
 fclean: clean
-	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME)..." $(NONE)
-	@rm -rf $(NAME)
+	@${RM} ${NAME}
 
 re: fclean all
+
+.PHONY: all clean fclean re
