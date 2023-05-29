@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/05/26 17:49:35 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:26:16 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int argc, char** argv)
 
 	if (argc != 5)	
 		return (0);
-
 	pipex = init_pipex(pipex, argv);
 	check_args(pipex);
 	//execute the comand use fork , execve , pipe

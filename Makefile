@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/05/26 16:18:43 by evocatur         ###   ########.fr        #
+#    Updated: 2023/05/29 14:22:07 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,12 @@ exe: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) infile "ls -l" "wc -l" outfile
 	@echo "\n     - Done -"
+
+leak: all
+	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
+	@echo "     "
+	@echo "     "
+	@leaks --atExit -- ./$(NAME)
 
 clean: 
 	@${RM} ${OBJ}

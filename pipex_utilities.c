@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/05/26 17:50:15 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:27:18 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,30 @@ void check_args(t_pipex pipex)
 
 void exit_program(t_pipex pipex)
 {
+	free_command(pipex.cmd1);
+	free_command(pipex.cmd2);
 	free(pipex.cmd1);
 	free(pipex.cmd2);
 	close(pipex.in_fd);
 	close(pipex.out_fd);
-	unlink(pipex.filein);
-	unlink(pipex.fileout);
+	if (unlink(pipex.filein) != 0 && unlink(pipex.filein) != 0)
+	{
+			ft_printf("\033[0;31m" " Error deleting file  \n %s\n" "\033[0m");
+	}
+	printf("\nasdas");
+}
+
+void free_command(char **cmd)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (*cmd)
+	{
+		i++;
+		str = *cmd;
+		free(str);
+		cmd++;
+	}
 }
