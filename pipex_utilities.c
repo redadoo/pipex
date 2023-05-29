@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/05/29 14:27:18 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:55:01 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,23 @@
 
 t_pipex init_pipex(t_pipex pipex, char **argv)
 {
-	int		in_fd;
-	int		out_fd;
-
 	pipex.filein = argv[1];
 	pipex.fileout = argv[4];
 	pipex.cmd1 = ft_split(argv[2],' ');
 	pipex.cmd2 = ft_split(argv[3],' ');
-	in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0644);
-	out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
-	pipex.in_fd = in_fd;
-	pipex.out_fd = out_fd;
+	pipex.in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0644);
+	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
 	return (pipex);
 }
 
 void check_args(t_pipex pipex)
 {
-	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, R_OK) == -1)
-		exit_program(pipex);
-	
-	//more...
+	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
+	{
+		exit_program(pipex);	
+	}
+	dup2(pipex.in_fd,  STDIN_FILENO);
+	dup2(pipex.out_fd, STDOUT_FILENO);
 }
 
 void exit_program(t_pipex pipex)
@@ -44,11 +41,8 @@ void exit_program(t_pipex pipex)
 	free(pipex.cmd2);
 	close(pipex.in_fd);
 	close(pipex.out_fd);
-	if (unlink(pipex.filein) != 0 && unlink(pipex.filein) != 0)
-	{
-			ft_printf("\033[0;31m" " Error deleting file  \n %s\n" "\033[0m");
-	}
-	printf("\nasdas");
+	//unlink(pipex.fileout);
+	//unlink(pipex.filein);
 }
 
 void free_command(char **cmd)
@@ -64,4 +58,47 @@ void free_command(char **cmd)
 		free(str);
 		cmd++;
 	}
+}
+
+void execute_command(t_pipex pipex)
+{
+	int fd[2];
+	pid_t pid;
+	char buffer[13];
+
+	//fare il redirect con la pipe del output di cmd1 su cmd2
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+
+	pid = fork();
+
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+
+	if (pid == 0)
+	{
+		close(fd[0]); // close the read end of the pipe
+		execve("/bin/ls", pipex.cmd1, NULL);
+		write(fd[1], "luca", 4);
+		close(fd[1]); // close the write end of the pipe
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		close(fd[1]); // close the write end of the pipe
+		read(fd[0], buffer, 4);
+		close(fd[0]); // close the read end of the pipe
+		printf("Message from child: '%s' \n", buffer);
+		exit(EXIT_SUCCESS);
+	}
+
+	
+	//execve("/bin/ls", pipex.cmd1, NULL);
+	//execve("/usr/bin/wc", pipex.cmd2, NULL);
 }

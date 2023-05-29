@@ -6,13 +6,13 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/05/29 14:22:07 by evocatur         ###   ########.fr        #
+#    Updated: 2023/05/29 17:32:23 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = $(LIBFT_SRC) $(MAIN_SRC)
+SRCS = $(LIBFT_SRC) $(GNL_SRC) $(MAIN_SRC)
 
 
 LIBFT_SRC = ft_libft/*.c
@@ -41,13 +41,17 @@ $(OBJ): $(SRCS)
 exe: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) infile "ls -l" "wc -l" outfile
-	@echo "\n     - Done -"
+	@echo "     - Done -"
 
-leak: all
-	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
-	@echo "     "
-	@echo "     "
-	@leaks --atExit -- ./$(NAME)
+#leak: all
+#	LEAKS_E := $(shell which leaks)
+#	ifeq ($(LEAKS_E),leaks not found)
+# 	$(error "No leaks in, consider doing apt-get install leaks")
+# 	endif
+#	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
+#	@echo "     "
+#	@echo "     "
+#	@leaks --atExit -- ./$(NAME)
 
 clean: 
 	@${RM} ${OBJ}
