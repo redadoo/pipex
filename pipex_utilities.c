@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/05/29 17:55:01 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:03:28 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void execute_command(t_pipex pipex)
 	if (pid == 0)
 	{
 		close(fd[0]); // close the read end of the pipe
-		execve("/bin/ls", pipex.cmd1, NULL);
+		//execve("/bin/ls", pipex.cmd1, NULL);
 		write(fd[1], "luca", 4);
 		close(fd[1]); // close the write end of the pipe
 		exit(EXIT_SUCCESS);
@@ -92,13 +92,12 @@ void execute_command(t_pipex pipex)
 	else
 	{
 		close(fd[1]); // close the write end of the pipe
+		//execve("/usr/bin/wc", pipex.cmd2, NULL);
 		read(fd[0], buffer, 4);
 		close(fd[0]); // close the read end of the pipe
 		printf("Message from child: '%s' \n", buffer);
 		exit(EXIT_SUCCESS);
 	}
-
-	
 	//execve("/bin/ls", pipex.cmd1, NULL);
 	//execve("/usr/bin/wc", pipex.cmd2, NULL);
 }
