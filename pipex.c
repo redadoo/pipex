@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/05/29 15:55:59 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:15:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 		return (0);
 	pipex = init_pipex(pipex, argv);
 	check_args(pipex);
-	execute_command(pipex);
+	//execute_command(pipex);
 	exit_program(pipex);
 	return (0);
 }

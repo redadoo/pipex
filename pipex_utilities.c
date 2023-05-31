@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/05/29 18:03:28 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:31:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_pipex init_pipex(t_pipex pipex, char **argv)
 	pipex.cmd2 = ft_split(argv[3],' ');
 	pipex.in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0644);
 	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
+	pipex.cmd1_path = "/usr/bin/";
+	//ft_strlcat(pipex.cmd1_path,pipex.cmd1[0]);
+	//ft_strlcat(pipex.cmd1_path,pipex.cmd1[0]);
 	return (pipex);
 }
 
@@ -92,7 +95,7 @@ void execute_command(t_pipex pipex)
 	else
 	{
 		close(fd[1]); // close the write end of the pipe
-		//execve("/usr/bin/wc", pipex.cmd2, NULL);
+		execve("/usr/bin/wc", pipex.cmd2, NULL);
 		read(fd[0], buffer, 4);
 		close(fd[0]); // close the read end of the pipe
 		printf("Message from child: '%s' \n", buffer);
@@ -100,4 +103,43 @@ void execute_command(t_pipex pipex)
 	}
 	//execve("/bin/ls", pipex.cmd1, NULL);
 	//execve("/usr/bin/wc", pipex.cmd2, NULL);
+}
+
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	char	*copydst;
+	char	*src_start;
+	size_t	copydst_len;
+	size_t	remaing;
+
+	copydst = dest;
+	src_start = (char *) src;
+	remaing = size;
+	while (remaing-- != 0 && *copydst != '\0')
+		copydst++;
+	copydst_len = copydst - dest;
+	remaing = size - copydst_len;
+	if (remaing == 0)
+		return (copydst_len + ft_strlen((char *) src));
+	while (*src != '\0')
+	{
+		if (remaing > 1)
+		{
+			*copydst++ = *src;
+			remaing--;
+		}
+		src++;
+	}
+	*copydst = '\0';
+	return (copydst_len + (src - src_start));
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
