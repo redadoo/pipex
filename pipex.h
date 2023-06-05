@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/05/31 14:14:44 by user             ###   ########.fr       */
+/*   Updated: 2023/06/05 18:07:52 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdlib.h>
-# include "ft_libft/libft.h"
+# include <stdbool.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 typedef struct s_pipex
 {
@@ -37,6 +41,20 @@ void	check_args(t_pipex pipex);
 void	exit_program(t_pipex pipex);
 void	free_command(char **cmd);
 void	execute_command(t_pipex pipex);
+int		ft_strlen(const char *s);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
+char	**ft_split(const char *s, char c);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
-size_t	ft_strlen(char *str);
+size_t	ft_strlen_t(const char *str);
+char	*ft_substr(char const *s, unsigned int start, unsigned int len);
+void	*ft_calloc(size_t count, size_t size);
+char	*get_next_line(int fd);
+char	*ft_statstr(int fd, char *statstr);
+char	*ft_strjoin(char *backup, char *buff);
+char	*ft_strchr(const char *str, int ch);
+char	*ft_backup(char *backup);
+char	*ft_get_line(char *backup);
+int		file_linecount(char *file);
+
 #endif

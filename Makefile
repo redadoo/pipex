@@ -6,22 +6,22 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/05/29 17:32:23 by evocatur         ###   ########.fr        #
+#    Updated: 2023/06/05 16:24:42 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = $(LIBFT_SRC) $(GNL_SRC) $(MAIN_SRC)
+SRCS = $(MAIN_SRC) $(LIBFT)
 
-
-LIBFT_SRC = ft_libft/*.c
+LIBFT  = ft_libft/*.c
 
 MAIN_SRC = *.c
 
 OBJ = *.o
 
 CC = gcc
+
 CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
@@ -29,13 +29,13 @@ RM = rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo $(CURSIVE) $(GRAY) "     - Compiling $(NAME)..." $(NONE)
+	@echo "     - Compiling $(NAME)..." 
 	@${CC} $(FLAGS) $(OBJ) -o $(NAME)
-	@echo $(GREEN)"- Compiled -"$(NONE)
+	@echo "- Compiled -"
 	@${RM} $(OBJ)
 	
 $(OBJ): $(SRCS)
-	@echo $(CURSIVE)$(GRAY) "     - Making object files..." $(NONE)
+	@echo "     - Making object files..." 
 	@${CC} -c $(SRCS)
 
 exe: all
@@ -55,9 +55,11 @@ exe: all
 
 clean: 
 	@${RM} ${OBJ}
+	@make -C $(LIBF_DIR) clean
 
 fclean: clean
 	@${RM} ${NAME}
+	@make -C $(LIBF_DIR) fclean
 
 re: fclean all
 
