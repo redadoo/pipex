@@ -1,11 +1,10 @@
-Message from child: 'hello parent!'
-Message from child: 'hello paren2!'
--r--r-- 1 evocatur 2022_rome     7 Jun  9 13:34 README.md
+total 52
+-rw-r--r-- 1 evocatur 2022_rome  1749 Jun  9 14:04 Makefile
+-rw-r--r-- 1 evocatur 2022_rome     7 Jun  9 13:34 README.md
 drwxr-xr-x 2 evocatur 2022_rome  4096 Jun  9 13:46 ft_libft
--rw-r--r-- 1 evocatur 2022_rome     0 Jun  9 14:18 infile
--rw-r--r-- 1 evocatur 2022_rome   585 Jun  9 14:21 outfile
--rwxr-xr-x 1 evocatur 2022_rome 22592 Jun  9 14:21 pipex
+-rw-r--r-- 1 evocatur 2022_rome     2 Jun  9 14:59 infile
+-rw-r--r-- 1 evocatur 2022_rome     0 Jun  9 15:07 outfile
+-rwxr-xr-x 1 evocatur 2022_rome 22552 Jun  9 15:07 pipex
 -rw-r--r-- 1 evocatur 2022_rome  1109 Jun  9 14:19 pipex.c
 -rw-r--r-- 1 evocatur 2022_rome  2071 Jun  9 14:03 pipex.h
--rw-r--r-- 1 evocatur 2022_rome  3609 Jun  9 14:21 pipex_utilities.c
-60 Jun  9 14:21 pipex_utilities.c
+-rw-r--r-- 1 evocatur 2022_rome  3978 Jun  9 15:07 pipex_utilities.c

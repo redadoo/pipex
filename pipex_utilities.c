@@ -82,32 +82,29 @@ void execute_command(t_pipex pipex)
 
 	i = 0;
 	if (pipe(fd) == -1)
-	{
-		printf(" fdsfsd222222fsdfsdf  \n");
 		exit(EXIT_FAILURE);
-	}
 	pid = fork();
 	if (pid == -1)
-	{
-		printf(" fdsfsdf11111sdfsdf  \n");
 		exit(EXIT_FAILURE);
-	}
 	if (pid == 0)
 	{
-		close(fd[0]); // close the read end of the pipe
-		write(fd[1], "hello parent!", 13);
-		write(fd[1], "hello paren2!", 13);
-		close(fd[1]); // close the write end of the pipe
+		close(fd[0]);
+		execve(pipex.cmd1_path, pipex.cmd1, NULL);
+		_fd = open(pipex.fileout, O_RDONLY);
+		 while (i < file_linecount(pipex.fileout))
+		 {
+		 	str = get_next_line(_fd);
+			printf(" %s  \n",str);
+		 	i++;
+		 }	
+		close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		close(fd[1]); // close the write end of the pipe
-		read(fd[0], buffer, 13);
-		printf("Message from child: '%s'\n", buffer);
-		read(fd[0], buffer, 13);
-		close(fd[0]); // close the read end of the pipe
-		printf("Message from child: '%s'\n", buffer);
+		wait(NULL);
+		close(fd[1]);
+		close(fd[0]);
 		exit(EXIT_SUCCESS);
 	}
 	// if (pid == 0)
