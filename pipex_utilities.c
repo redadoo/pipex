@@ -26,8 +26,6 @@ t_pipex init_pipex(t_pipex pipex, char **argv)
 	ft_strlcat(pipex.cmd2_path,"/usr/bin/",11);
 	ft_strlcat(pipex.cmd1_path,pipex.cmd1[0], (ft_strlen(pipex.cmd1[0]) + ft_strlen(pipex.cmd1_path) + 1));
 	ft_strlcat(pipex.cmd2_path,pipex.cmd2[0], (ft_strlen(pipex.cmd2[0]) + ft_strlen(pipex.cmd2_path) + 1));
-	printf("\n %s  \n" , pipex.cmd1_path);
-	printf("\n %s  \n" , pipex.cmd2_path);
 	//printf("\n%i\n",ft_strlen(pipex.cmd2_path));
 	return (pipex);
 }
@@ -78,7 +76,6 @@ void execute_command(t_pipex pipex)
 	int i;
 	pid_t pid;
 	char *str;
-	char buffer[13];
 
 	i = 0;
 	if (pipe(fd) == -1)
@@ -91,12 +88,14 @@ void execute_command(t_pipex pipex)
 		close(fd[0]);
 		execve(pipex.cmd1_path, pipex.cmd1, NULL);
 		_fd = open(pipex.fileout, O_RDONLY);
-		 while (i < file_linecount(pipex.fileout))
-		 {
-		 	str = get_next_line(_fd);
-			printf(" %s  \n",str);
-		 	i++;
-		 }	
+		while (i < file_linecount(pipex.fileout))
+		{
+			str = get_next_line(_fd);
+			dprintf(fd[2],"ciao \n \n \n \n \n");
+			write(fd[1],str,ft_strlen(str));
+			printf("X %s  \n",str);
+			i++;
+		}	
 		close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
@@ -104,6 +103,12 @@ void execute_command(t_pipex pipex)
 	{
 		wait(NULL);
 		close(fd[1]);
+		while (i < file_linecount(pipex.fileout))
+		{
+			read(fd[0],str,60);
+			printf(" %s  \n",str);
+			i++;
+		}	
 		close(fd[0]);
 		exit(EXIT_SUCCESS);
 	}
