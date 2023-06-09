@@ -1,13 +1,13 @@
-total 56
+total 60
 -rw-r--r-- 1 evocatur 2022_rome  1749 Jun  9 14:04 Makefile
 -rw-r--r-- 1 evocatur 2022_rome     7 Jun  9 13:34 README.md
 drwxr-xr-x 2 evocatur 2022_rome  4096 Jun  9 13:46 ft_libft
--rw-r--r-- 1 evocatur 2022_rome     2 Jun  9 14:59 infile
--rw-r--r-- 1 evocatur 2022_rome     0 Jun  9 16:23 outfile
--rwxr-xr-x 1 evocatur 2022_rome 22616 Jun  9 16:24 pipex
+-rw-r--r-- 1 evocatur 2022_rome     2 Jun  9 16:48 infile
+-rw-r--r-- 1 evocatur 2022_rome   606 Jun  9 16:51 outfile
+-rwxr-xr-x 1 evocatur 2022_rome 22504 Jun  9 16:51 pipex
 -rw-r--r-- 1 evocatur 2022_rome  1109 Jun  9 14:19 pipex.c
 -rw-r--r-- 1 evocatur 2022_rome  2072 Jun  9 16:20 pipex.h
--rw-r--r-- 1 evocatur 2022_rome  4063 Jun  9 16:23 pipex_utilities.c
+-rw-r--r-- 1 evocatur 2022_rome  3734 Jun  9 16:51 pipex_utilities.c
    
    
    

@@ -36,8 +36,6 @@ void check_args(t_pipex pipex)
 	{
 		exit_program(pipex);	
 	}
-	dup2(pipex.in_fd,  STDIN_FILENO);
-	dup2(pipex.out_fd, STDOUT_FILENO);
 }
 
 void exit_program(t_pipex pipex)
@@ -87,28 +85,14 @@ void execute_command(t_pipex pipex)
 	{
 		close(fd[0]);
 		execve(pipex.cmd1_path, pipex.cmd1, NULL);
-		_fd = open(pipex.fileout, O_RDONLY);
-		while (i < file_linecount(pipex.fileout))
-		{
-			str = get_next_line(_fd);
-			dprintf(fd[2],"ciao \n \n \n \n \n");
-			write(fd[1],str,ft_strlen(str));
-			printf("X %s  \n",str);
-			i++;
-		}	
 		close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		wait(NULL);
+		execve(pipex.cmd2_path, pipex.cmd2, NULL);
 		close(fd[1]);
-		while (i < file_linecount(pipex.fileout))
-		{
-			read(fd[0],str,60);
-			printf(" %s  \n",str);
-			i++;
-		}	
 		close(fd[0]);
 		exit(EXIT_SUCCESS);
 	}
