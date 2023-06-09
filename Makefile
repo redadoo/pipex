@@ -55,11 +55,9 @@ exe: all
 
 clean: 
 	@${RM} ${OBJ}
-	@make -C $(LIBF_DIR) clean
 
 fclean: clean
 	@${RM} ${NAME}
-	@make -C $(LIBF_DIR) fclean
 
 re: fclean all
 
