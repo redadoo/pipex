@@ -26,8 +26,11 @@ t_pipex init_pipex(t_pipex pipex, char **argv)
 	ft_strlcat(pipex.cmd2_path,"/usr/bin/",11);
 	ft_strlcat(pipex.cmd1_path,pipex.cmd1[0], (ft_strlen(pipex.cmd1[0]) + ft_strlen(pipex.cmd1_path) + 1));
 	ft_strlcat(pipex.cmd2_path,pipex.cmd2[0], (ft_strlen(pipex.cmd2[0]) + ft_strlen(pipex.cmd2_path) + 1));
+<<<<<<< HEAD
 	printf("\n %s  \n" , pipex.cmd1_path);
 	printf("\n %s  \n" , pipex.cmd2_path);
+=======
+>>>>>>> f0f7c48e8f06e66e25cea5e49366e2b4c557ea8a
 	//printf("\n%i\n",ft_strlen(pipex.cmd2_path));
 	return (pipex);
 }
@@ -38,8 +41,6 @@ void check_args(t_pipex pipex)
 	{
 		exit_program(pipex);	
 	}
-	dup2(pipex.in_fd,  STDIN_FILENO);
-	dup2(pipex.out_fd, STDOUT_FILENO);
 }
 
 void exit_program(t_pipex pipex)
@@ -89,16 +90,67 @@ void execute_command(t_pipex pipex)
 	{
 		close(fd[0]);
 		execve(pipex.cmd1_path, pipex.cmd1, NULL);
-		//passare nella pipe outfile al cm2
 		close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		wait(NULL);
+		execve(pipex.cmd2_path, pipex.cmd2, NULL);
 		close(fd[1]);
-		//read(fd[0], );
 		close(fd[0]);
 		exit(EXIT_SUCCESS);
 	}
+	// if (pid == 0)
+	// {
+	// 	close(fd[0]);
+	// 	 execve(pipex.cmd1_path, pipex.cmd1, NULL);
+	// 	 _fd = open(pipex.fileout, O_RDONLY);
+	// 	 while (i < file_linecount(pipex.fileout))
+	// 	 {
+	// 	 	str = get_next_line(_fd);
+	// 		printf(" %s  \n",str);
+	// 	 	write(fd[1],str,ft_strlen(str));
+	// 	 	i++;
+	// 	 }
+	// 	// //passare nella pipe outfile al cm2
+	// 	close(fd[1]);
+	// 	exit(EXIT_SUCCESS);
+	// }
+	// else
+	// {
+	// 	close(fd[1]);
+	// 	//_fd = open(pipex.fileout, O_RDONLY);
+	// 	//read(fd[0],str,ft_strlen(get_next_line(_fd)));
+	// 	//printf(" %s  \n",str);
+	// 	i++;
+	// 	close(fd[0]);
+	// 	exit(EXIT_SUCCESS);
+	// }
+}
+
+int	file_linecount(char *file)
+{
+	char	c;	
+	int		fd;	
+	int		linecount;
+	int		readcount;
+
+	fd = open(file, O_RDONLY);
+	if (!fd)
+		return (-1);
+	linecount = 1;
+	while (true)
+	{
+		readcount = read(fd, &c, 1);
+		if (readcount == 0)
+			break ;
+		if (readcount < 0)
+			return (-1);
+		if (c == '\n')
+			linecount++;
+	}
+	close(fd);
+	return (linecount);
 }
 
