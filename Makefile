@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/06/09 10:26:10 by evocatur         ###   ########.fr        #
+#    Updated: 2023/06/10 14:00:17 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 
 SRCS = $(MAIN_SRC) $(LIBFT)
 
-LIBFT  = ft_libft/*.c
+LIBFT  = libft/*.c
 
 MAIN_SRC = *.c
 
