@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/09 09:56:02 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:20:08 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,16 @@ t_pipex init_pipex(t_pipex pipex, char **argv)
 	pipex.fileout = argv[4];
 	pipex.cmd1 = ft_split(argv[2],' ');
 	pipex.cmd2 = ft_split(argv[3],' ');
-	pipex.in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0644);
-	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
-	pipex.cmd1_path = ft_calloc(sizeof(char) , (ft_strlen(pipex.cmd1[0]) + 10));
-	pipex.cmd2_path = ft_calloc(sizeof(char) , (ft_strlen(pipex.cmd1[0]) + 10));
-	ft_strlcat(pipex.cmd1_path,"/usr/bin/",11);
-	ft_strlcat(pipex.cmd2_path,"/usr/bin/",11);
+	pipex.in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0777);
+	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0777);
+	pipex.cmd1_path = ft_calloc(sizeof(char) , (ft_strlen(pipex.cmd1[0]) + 6));
+	pipex.cmd2_path = ft_calloc(sizeof(char) , (ft_strlen(pipex.cmd1[0]) + 6));
+	ft_strlcat(pipex.cmd1_path,"/bin/",11);
+	ft_strlcat(pipex.cmd2_path,"/bin/",11);
 	ft_strlcat(pipex.cmd1_path,pipex.cmd1[0], (ft_strlen(pipex.cmd1[0]) + ft_strlen(pipex.cmd1_path) + 1));
 	ft_strlcat(pipex.cmd2_path,pipex.cmd2[0], (ft_strlen(pipex.cmd2[0]) + ft_strlen(pipex.cmd2_path) + 1));
-<<<<<<< HEAD
-	printf("\n %s  \n" , pipex.cmd1_path);
-	printf("\n %s  \n" , pipex.cmd2_path);
-=======
->>>>>>> f0f7c48e8f06e66e25cea5e49366e2b4c557ea8a
-	//printf("\n%i\n",ft_strlen(pipex.cmd2_path));
+	// printf("\n %s  \n" , pipex.cmd1[1]);
+	// printf("\n %s  \n" , pipex.cmd2[1]);
 	return (pipex);
 }
 
@@ -74,10 +70,11 @@ void free_command(char **cmd)
 
 void execute_command(t_pipex pipex)
 {
-	int fd[2];
-	int _fd;
 	int i;
-	pid_t pid;
+	int _fd;
+	int fd[2];
+	pid_t pid, wpid;
+	int status = 0;
 	char *str;
 
 	i = 0;
@@ -88,45 +85,16 @@ void execute_command(t_pipex pipex)
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 	{
-		close(fd[0]);
+		dup2(pipex.out_fd, STDOUT_FILENO);
 		execve(pipex.cmd1_path, pipex.cmd1, NULL);
-		close(fd[1]);
+		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
 	}
-	else
-	{
-		wait(NULL);
-		execve(pipex.cmd2_path, pipex.cmd2, NULL);
-		close(fd[1]);
-		close(fd[0]);
-		exit(EXIT_SUCCESS);
-	}
-	// if (pid == 0)
-	// {
-	// 	close(fd[0]);
-	// 	 execve(pipex.cmd1_path, pipex.cmd1, NULL);
-	// 	 _fd = open(pipex.fileout, O_RDONLY);
-	// 	 while (i < file_linecount(pipex.fileout))
-	// 	 {
-	// 	 	str = get_next_line(_fd);
-	// 		printf(" %s  \n",str);
-	// 	 	write(fd[1],str,ft_strlen(str));
-	// 	 	i++;
-	// 	 }
-	// 	// //passare nella pipe outfile al cm2
-	// 	close(fd[1]);
-	// 	exit(EXIT_SUCCESS);
-	// }
-	// else
-	// {
-	// 	close(fd[1]);
-	// 	//_fd = open(pipex.fileout, O_RDONLY);
-	// 	//read(fd[0],str,ft_strlen(get_next_line(_fd)));
-	// 	//printf(" %s  \n",str);
-	// 	i++;
-	// 	close(fd[0]);
-	// 	exit(EXIT_SUCCESS);
-	// }
+	while ((wpid = wait(&status)) > 0);
+	printf("so na sega \n");
+	dup2(pipex.out_fd, 0);
+	execve("/usr/bin/wc", pipex.cmd2, NULL);
+	exit(EXIT_SUCCESS);
 }
 
 int	file_linecount(char *file)
