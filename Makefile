@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/06/05 16:24:42 by evocatur         ###   ########.fr        #
+#    Updated: 2023/06/09 10:26:10 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,23 +43,16 @@ exe: all
 	@./$(NAME) infile "ls -l" "wc -l" outfile
 	@echo "     - Done -"
 
-#leak: all
-#	LEAKS_E := $(shell which leaks)
-#	ifeq ($(LEAKS_E),leaks not found)
-# 	$(error "No leaks in, consider doing apt-get install leaks")
-# 	endif
-#	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
-#	@echo "     "
-#	@echo "     "
-#	@leaks --atExit -- ./$(NAME)
-
+leaks:all
+	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
+	@echo "     "
+	@echo "     "
+	@leaks --atExit -- ./$(NAME)
 clean: 
 	@${RM} ${OBJ}
-	@make -C $(LIBF_DIR) clean
 
 fclean: clean
 	@${RM} ${NAME}
-	@make -C $(LIBF_DIR) fclean
 
 re: fclean all
 

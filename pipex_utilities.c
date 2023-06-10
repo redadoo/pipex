@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/05 18:12:23 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:56:02 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_pipex init_pipex(t_pipex pipex, char **argv)
 	ft_strlcat(pipex.cmd2_path,"/usr/bin/",11);
 	ft_strlcat(pipex.cmd1_path,pipex.cmd1[0], (ft_strlen(pipex.cmd1[0]) + ft_strlen(pipex.cmd1_path) + 1));
 	ft_strlcat(pipex.cmd2_path,pipex.cmd2[0], (ft_strlen(pipex.cmd2[0]) + ft_strlen(pipex.cmd2_path) + 1));
-	//printf("\n %s  \n" , pipex.cmd1_path);
-	//printf("\n %s  \n" , pipex.cmd2_path);
+	printf("\n %s  \n" , pipex.cmd1_path);
+	printf("\n %s  \n" , pipex.cmd2_path);
 	//printf("\n%i\n",ft_strlen(pipex.cmd2_path));
 	return (pipex);
 }
