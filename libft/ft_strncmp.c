@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/06/14 14:42:23 by evocatur         ###   ########.fr       */
+/*   Created: 2023/01/22 16:56:29 by evocatur          #+#    #+#             */
+/*   Updated: 2023/06/14 15:14:16 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
-int main(int argc, char** argv, char **envp)
+
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	t_pipex pipex;
+	size_t	i;
 
-	if (argc != 5)
-	{
-		write(2, "Error : Wrong number of arguments\n", 34);
+	i = 0;
+	if (n == 0)
 		return (0);
-	}
-	pipex = init_pipex(pipex, argv, envp);
-	//check_args(pipex);
-	//execute_command(pipex);
-	//exit_program(pipex);
-	return (0);
+	while ((unsigned char)str1[i] == str2[i] && (i < n - 1)
+		&& (unsigned char)str1[i])
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
