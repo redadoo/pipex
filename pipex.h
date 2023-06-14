@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/06/14 15:01:37 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:21:20 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);
 void	exit_program(t_pipex pipex);
 void	free_command(char **cmd);
-void	execute_command(t_pipex pipex);
+void	execute_command(t_pipex pipex, char **env);
 int		ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);

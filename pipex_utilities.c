@@ -6,11 +6,33 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/14 15:31:53 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:26:28 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void first_child(int *fd, t_pipex pipex, char **env)
+{
+	printf("test \n");
+	if (dup2(pipex.out_fd, STDIN_FILENO) != -1 && dup2(fd[1], STDOUT_FILENO) != -1)
+	{
+		if (execve(pipex.cmd1_path,pipex.cmd1, env) != -1)
+			exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
+	}
+}
+
+static void second_child(int *fd, t_pipex pipex, char **env)
+{
+	printf("test 2 \n");
+	if (dup2(pipex.out_fd, STDOUT_FILENO) != -1 && dup2(fd[0], STDIN_FILENO) != -1)
+	{
+		if (execve(pipex.cmd2_path,pipex.cmd2, env) != -1)
+			exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
+	}
+}
 
 static char	*acces_command(char *cmd_name, char **paths)
 {
@@ -51,16 +73,15 @@ void check_args(t_pipex pipex)
 
 void exit_program(t_pipex pipex)
 {
-	//free_command(pipex.cmd1);
-	//free_command(pipex.cmd2);
-	//free(pipex.cmd1);
-	//free(pipex.cmd2);
-	//free(pipex.cmd1_path);
-	//free(pipex.cmd2_path);
-	//close(pipex.in_fd);
-	//close(pipex.out_fd);
-	//unlink(pipex.fileout);
-	//unlink(pipex.filein);
+	free_command(pipex.cmd1);
+	free_command(pipex.cmd2);
+	free(pipex.cmd1);
+	free(pipex.cmd2);
+	free(pipex.cmd1_path);
+	free(pipex.cmd2_path);
+	unlink(pipex.fileout);
+	unlink(pipex.filein);
+	exit(EXIT_SUCCESS);
 }
 
 void free_command(char **cmd)
@@ -78,33 +99,30 @@ void free_command(char **cmd)
 	}
 }
 
-void execute_command(t_pipex pipex)
+void execute_command(t_pipex pipex, char**env)
 {
-	int i;
-	int _fd;
-	int fd[2];
-	pid_t pid, wpid;
-	int status = 0;
-	char *str;
+	int		fd[2];
+	int		status;
+	pid_t	pid_0;
+	pid_t	pid_1;
 
-	i = 0;
 	if (pipe(fd) == -1)
 		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-	{
-		dup2(pipex.out_fd, STDOUT_FILENO);
-		execve(pipex.cmd1_path, pipex.cmd1, NULL);
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		exit(EXIT_SUCCESS);
-	}
-	while ((wpid = wait(&status)) > 0);
-	printf("so na sega \n");
-	dup2(pipex.out_fd, 0);
-	execve("/usr/bin/wc", pipex.cmd2, NULL);
-	exit(EXIT_SUCCESS);
+	pid_0 = fork();
+	if (pid_0 < 0)
+		exit_program(pipex);
+	if (pid_0 == 0)
+		first_child(fd, pipex, env);
+	pid_1 = fork();
+	if (pid_1 < 0)
+		exit_program(pipex);
+	if (pid_1 == 0)
+		second_child(fd, pipex, env);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(-1, &status, 0);
+	waitpid(-1, &status, 0);
+
 }
 
 int	file_linecount(char *file)
