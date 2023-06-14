@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/06/14 16:21:20 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:18:20 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pipex
 
 t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);
-void	exit_program(t_pipex pipex);
+void	exit_program(t_pipex pipex, int status);
 void	free_command(char **cmd);
 void	execute_command(t_pipex pipex, char **env);
 int		ft_strlen(const char *s);
@@ -56,7 +56,10 @@ char	*ft_strjoin(char *backup, char *buff);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_backup(char *backup);
 char	*ft_get_line(char *backup);
-int		file_linecount(char *file);
 char	*return_path(char *cmd, t_pipex pipex, char **envp);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	first_child(int *fd, t_pipex pipex, char **env);
+void	second_child(int *fd, t_pipex pipex, char **env);
+char	*acces_command(char *cmd_name, char **paths);
+
 #endif
