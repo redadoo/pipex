@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/06/14 16:21:31 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:33:55 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ int main(int argc, char** argv, char **envp)
 	{
 		write(2, "Error : Wrong number of arguments\n", 34);
 		return (0);
+	}
+
+	if (!argv[2][0] || !argv[3][0])
+	{
+		printf(" command not valide");
+		exit_program(pipex);
 	}
 	pipex = init_pipex(pipex, argv, envp);
 	check_args(pipex);

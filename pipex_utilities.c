@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/14 16:26:28 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:39:41 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,39 @@
 
 static void first_child(int *fd, t_pipex pipex, char **env)
 {
-	printf("test \n");
 	if (dup2(pipex.out_fd, STDIN_FILENO) != -1 && dup2(fd[1], STDOUT_FILENO) != -1)
 	{
-		if (execve(pipex.cmd1_path,pipex.cmd1, env) != -1)
+		if(execve(pipex.cmd1_path, pipex.cmd1, env) != -1)
+		{
 			exit(EXIT_SUCCESS);
-		exit(EXIT_FAILURE);
+		}
+		else
+		{
+			printf("error 1 \n");
+			exit(EXIT_FAILURE);
+		}
 	}
+	printf("error 1 \n");
+	exit(EXIT_FAILURE);
 }
 
 static void second_child(int *fd, t_pipex pipex, char **env)
 {
-	printf("test 2 \n");
 	if (dup2(pipex.out_fd, STDOUT_FILENO) != -1 && dup2(fd[0], STDIN_FILENO) != -1)
 	{
-		if (execve(pipex.cmd2_path,pipex.cmd2, env) != -1)
+		if(execve(pipex.cmd1_path, pipex.cmd1, env) != -1)
+		{
+			printf("VA	 2 \n");
 			exit(EXIT_SUCCESS);
-		exit(EXIT_FAILURE);
+		}
+		else
+		{
+			printf("error 2 \n");
+			exit(EXIT_FAILURE);
+		}
 	}
+	printf("error 2 \n");
+	exit(EXIT_FAILURE);
 }
 
 static char	*acces_command(char *cmd_name, char **paths)
@@ -79,7 +94,7 @@ void exit_program(t_pipex pipex)
 	free(pipex.cmd2);
 	free(pipex.cmd1_path);
 	free(pipex.cmd2_path);
-	unlink(pipex.fileout);
+	//unlink(pipex.fileout);
 	unlink(pipex.filein);
 	exit(EXIT_SUCCESS);
 }
