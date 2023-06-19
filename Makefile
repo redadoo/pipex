@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/06/14 17:38:05 by evocatur         ###   ########.fr        #
+#    Updated: 2023/06/19 13:20:20 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,12 @@ $(OBJ): $(SRCS)
 
 exe: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) infile "ls -l" "wc -l" outfile
+	@./$(NAME) infile "ls -l" "grep evocatur" outfile
 	@echo "     - Done -"
 
 exe1: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) deepthought.txt "grep Now" "wc -w" outfile
+	@./$(NAME) deepthought "grep Now" "wc -w" outfile
 	@echo "     - Done -"
 
 empty: all
