@@ -40,7 +40,7 @@ $(OBJ): $(SRCS)
 
 exe: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) infile "ls -l" "grep evocatur" outfile
+	@./$(NAME) infile "ls -l" "grep 2022" outfile
 	@echo "     - Done -"
 
 exe1: all

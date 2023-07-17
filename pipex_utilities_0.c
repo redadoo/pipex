@@ -18,8 +18,8 @@ t_pipex init_pipex(t_pipex pipex, char **argv, char **envp)
 	pipex.fileout = argv[4];
 	pipex.cmd1 = ft_split(argv[2],' ');
 	pipex.cmd2 = ft_split(argv[3],' ');
-	pipex.in_fd = open(pipex.filein, O_WRONLY | O_CREAT, 0777);
-	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0777);
+	pipex.in_fd = open(pipex.filein, O_RDONLY);
+	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
 	pipex.cmd1_path = return_path(pipex.cmd1[0], pipex, envp);
 	pipex.cmd2_path = return_path(pipex.cmd2[0], pipex, envp);
 	return (pipex);
