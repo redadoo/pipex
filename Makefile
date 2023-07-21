@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/07/22 01:35:15 by edoardo          ###   ########.fr        #
+#    Updated: 2023/07/22 01:36:47 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(OBJ): $(SRCS)
 
 exe: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) infile "ls -l" "grep 2022" outfile
+	@./$(NAME) infile "ls -l" "grep rw" outfile
 	@echo "     - Done -"
 
 exe1: all

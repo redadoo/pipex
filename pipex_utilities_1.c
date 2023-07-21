@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/07/22 01:34:15 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/07/22 01:43:31 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	first_child(t_pipex pipex, char **env)
 void	second_child(t_pipex pipex, char **env)
 {
 	dup2(pipex.out_fd, STDOUT_FILENO);
-	dup2(pipex.pipe[0],STDIN_FILENO);
+	dup2(pipex.pipe[0], STDIN_FILENO);
 	close(pipex.pipe[1]);
 	execve(pipex.cmd2_path, pipex.cmd2, env);
-  	exit_program(pipex, EXIT_FAILURE); 
+	exit_program(pipex, EXIT_FAILURE);
 }
 
 char	*acces_command(char *cmd_name, char **paths)
@@ -48,9 +48,6 @@ char	*acces_command(char *cmd_name, char **paths)
 
 void	execute_command(t_pipex pipex, char**env)
 {
-	int		status;
-
-	status = 0;
 	if (pipe(pipex.pipe) == -1)
 		exit(EXIT_FAILURE);
 	pipex.pid1 = fork();
@@ -65,6 +62,6 @@ void	execute_command(t_pipex pipex, char**env)
 		second_child(pipex, env);
 	close(pipex.pipe[0]);
 	close(pipex.pipe[1]);
-	waitpid(pipex.pid1, NULL, 0);		
-	waitpid(pipex.pid2, NULL, 0);		
+	waitpid(pipex.pid1, NULL, 0);
+	waitpid(pipex.pid2, NULL, 0);
 }

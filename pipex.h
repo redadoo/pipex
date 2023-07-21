@@ -6,13 +6,12 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/07/22 01:28:32 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/07/22 01:39:57 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
-#define PIPEX_H
-
+# define PIPEX_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -38,7 +37,7 @@ typedef struct s_pipex
 	char	**cmd2;
 	char	*cmd1_path;
 	char	*cmd2_path;
-} t_pipex;
+}	t_pipex;
 
 t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);
