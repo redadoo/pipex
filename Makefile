@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
+#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/06/19 13:20:20 by evocatur         ###   ########.fr        #
+#    Updated: 2023/07/22 01:35:15 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ exe: all
 
 exe1: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) deepthought "grep Now" "wc -w" outfile
+	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
 
 empty: all

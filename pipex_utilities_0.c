@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utilities_0.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:03:51 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/14 17:32:23 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:27:35 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_pipex init_pipex(t_pipex pipex, char **argv, char **envp)
 	pipex.cmd1 = ft_split(argv[2],' ');
 	pipex.cmd2 = ft_split(argv[3],' ');
 	pipex.in_fd = open(pipex.filein, O_RDONLY);
-	pipex.out_fd = open(pipex.fileout, O_WRONLY | O_CREAT, 0644);
+	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	pipex.cmd1_path = return_path(pipex.cmd1[0], pipex, envp);
 	pipex.cmd2_path = return_path(pipex.cmd2[0], pipex, envp);
 	return (pipex);
@@ -27,10 +27,10 @@ t_pipex init_pipex(t_pipex pipex, char **argv, char **envp)
 
 void    check_args(t_pipex pipex)
 {
-	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
+/* 	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
 	{
 		exit_program(pipex, EXIT_FAILURE);
-	}
+	} */
 }
 
 void    exit_program(t_pipex pipex,int status)
@@ -44,7 +44,7 @@ void    exit_program(t_pipex pipex,int status)
 	//unlink(pipex.fileout);
 	//unlink(pipex.filein);
 	if (status == EXIT_FAILURE)
-		write(2, "Error \n", 6);
+		perror("Error");
 	exit(status);
 }
 

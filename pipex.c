@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/06/14 17:22:23 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:24:58 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int main(int argc, char** argv, char **envp)
 {
 	t_pipex pipex;
-
 	if (argc != 5)
 	{
 		write(2, "Error : Wrong number of arguments\n", 34);
@@ -27,8 +26,8 @@ int main(int argc, char** argv, char **envp)
 		write(2, "Error : command not found\n", 26);
 		exit(EXIT_FAILURE);
 	}
-	pipex = init_pipex(pipex, argv, envp);
-	check_args(pipex);
-	execute_command(pipex, envp);
-	exit_program(pipex, EXIT_SUCCESS);
+	pipex =  init_pipex(pipex, argv, envp);
+ 	check_args(pipex);
+	execute_command(pipex, envp); 
+ 	exit_program(pipex, EXIT_SUCCESS);
 }

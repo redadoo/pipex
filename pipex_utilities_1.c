@@ -3,39 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utilities_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:26:02 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/19 13:38:36 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:34:15 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	first_child(int *fd, t_pipex pipex, char **env)
+void	first_child(t_pipex pipex, char **env)
 {
-	if (dup2(fd[1], STDOUT_FILENO) != -1 && dup(pipex.in_fd) != -1)
-	{
-   		if(execve(pipex.cmd1_path, pipex.cmd1, env) != -1)
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-			exit_program(pipex, EXIT_FAILURE); 
-	}
+	dup2(pipex.pipe[1], STDOUT_FILENO);
+	dup2(pipex.in_fd, STDIN_FILENO);
+	close(pipex.pipe[0]);
+	execve(pipex.cmd1_path, pipex.cmd1, env);
 	exit_program(pipex, EXIT_FAILURE);
 }
 
-void	second_child(int *fd, t_pipex pipex, char **env)
+void	second_child(t_pipex pipex, char **env)
 {
- 	if (dup2(fd[0], STDIN_FILENO) != -1 && dup2(pipex.out_fd, STDOUT_FILENO) != -1 )
-	{
- 		if(execve(pipex.cmd2_path, pipex.cmd2, env) != -1)
-			exit(EXIT_SUCCESS);
-		else
-			exit(EXIT_FAILURE);
-	}
- 	exit_program(pipex, EXIT_FAILURE);
+	dup2(pipex.out_fd, STDOUT_FILENO);
+	dup2(pipex.pipe[0],STDIN_FILENO);
+	close(pipex.pipe[1]);
+	execve(pipex.cmd2_path, pipex.cmd2, env);
+  	exit_program(pipex, EXIT_FAILURE); 
 }
 
 char	*acces_command(char *cmd_name, char **paths)
@@ -56,26 +48,23 @@ char	*acces_command(char *cmd_name, char **paths)
 
 void	execute_command(t_pipex pipex, char**env)
 {
-	int		fd[2];
 	int		status;
-	pid_t	pid_0;
-	pid_t	pid_1;
 
 	status = 0;
-	if (pipe(fd) == -1)
+	if (pipe(pipex.pipe) == -1)
 		exit(EXIT_FAILURE);
-	pid_0 = fork();
-	if (pid_0 < 0)
+	pipex.pid1 = fork();
+	if (pipex.pid1 < 0)
 		exit_program(pipex, EXIT_FAILURE);
-	if (pid_0 == 0)
-		first_child(fd, pipex, env);
-	pid_1 = fork();
-	if (pid_1 < 0)
+	if (pipex.pid1 == 0)
+		first_child(pipex, env);
+	pipex.pid2 = fork();
+	if (pipex.pid2 < 0)
 		exit_program(pipex, EXIT_FAILURE);
-	if (pid_1 == 0)
-		second_child(fd, pipex, env);
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(-1, &status, 0);
-	waitpid(-1, &status, 0);
+	if (pipex.pid2 == 0)
+		second_child(pipex, env);
+	close(pipex.pipe[0]);
+	close(pipex.pipe[1]);
+	waitpid(pipex.pid1, NULL, 0);		
+	waitpid(pipex.pid2, NULL, 0);		
 }

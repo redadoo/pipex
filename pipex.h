@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/06/19 13:29:03 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/22 01:28:32 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ typedef struct s_pipex
 {
 	int		in_fd;
 	int		out_fd;
+	int		pipe[2];
+	pid_t	pid1;
+	pid_t	pid2;
 	char	*filein;
 	char	*fileout;
 	char	**cmd1;
@@ -58,8 +61,8 @@ char	*ft_backup(char *backup);
 char	*ft_get_line(char *backup);
 char	*return_path(char *cmd, t_pipex pipex, char **envp);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	first_child(int *fd, t_pipex pipex, char **env);
-void	second_child(int *fd, t_pipex pipex, char **env);
+void	first_child(t_pipex pipex, char **env);
+void	second_child(t_pipex pipex, char **env);
 char	*acces_command(char *cmd_name, char **paths);
 
 #endif
