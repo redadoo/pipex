@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utilities_0.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:03:51 by evocatur          #+#    #+#             */
-/*   Updated: 2023/07/22 01:42:04 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:14:13 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp)
 	pipex.cmd2 = ft_split(argv[3], ' ');
 	pipex.in_fd = open(pipex.filein, O_RDONLY);
 	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	pipex.cmd1_path = return_path(pipex.cmd1[0], pipex, envp);
-	pipex.cmd2_path = return_path(pipex.cmd2[0], pipex, envp);
+	pipex.cmd1_path = return_path(pipex.cmd1[0], envp);
+	pipex.cmd2_path = return_path(pipex.cmd2[0], envp);
 	return (pipex);
 }
 
@@ -49,19 +49,16 @@ void	exit_program(t_pipex pipex, int status)
 void	free_command(char **cmd)
 {
 	char	*str;
-	int		i;
 
-	i = 0;
 	while (*cmd)
 	{
-		i++;
 		str = *cmd;
 		free(str);
 		cmd++;
 	}
 }
 
-char	*return_path(char *cmd, t_pipex pipex, char**env)
+char	*return_path(char *cmd, char**env)
 {
 	int		i;
 	char	**paths;

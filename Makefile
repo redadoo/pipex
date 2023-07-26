@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
+#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/07/22 01:36:47 by edoardo          ###   ########.fr        #
+#    Updated: 2023/07/26 16:10:58 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 SRCS = $(MAIN_SRC) $(LIBFT)
+
+SRCS_BONUS = pipex_bonus_utils.c pipex.bonus.c
 
 LIBFT  = libft/*.c
 
@@ -47,6 +49,7 @@ exe1: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
+bonus:
 
 empty: all
 	@echo "     - Executing $(NAME)..."

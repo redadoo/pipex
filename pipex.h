@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/07/22 01:39:57 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/07/26 16:24:00 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ typedef struct s_pipex
 	char	*cmd2_path;
 }	t_pipex;
 
+typedef struct s_ppbx
+{
+	int		in_fd;
+	int		out_fd;
+	int		pipe[2];
+	int		cmd_number;
+	pid_t	pid;
+	char	*filein;
+	char	*fileout;
+	char	**cmd;
+	char	*cmd_path;
+}	t_ppbx;
+
+void	exit_bonus(t_ppbx pipex, int status);
+void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv, char **envp);
 t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);
 void	exit_program(t_pipex pipex, int status);
@@ -58,7 +73,7 @@ char	*ft_strjoin(char *backup, char *buff);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_backup(char *backup);
 char	*ft_get_line(char *backup);
-char	*return_path(char *cmd, t_pipex pipex, char **envp);
+char	*return_path(char *cmd, char **envp);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	first_child(t_pipex pipex, char **env);
 void	second_child(t_pipex pipex, char **env);
