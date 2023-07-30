@@ -3,24 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
+#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/07/26 16:10:58 by evocatur         ###   ########.fr        #
+#    Updated: 2023/07/28 17:28:54 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
+BONUS_NAME = pipex_bonus
+
 SRCS = $(MAIN_SRC) $(LIBFT)
 
-SRCS_BONUS = pipex_bonus_utils.c pipex.bonus.c
+SRCS_BONUS = pipex_bonus_utils.c pipex_bonus.c
 
 LIBFT  = libft/*.c
 
 MAIN_SRC = *.c
 
 OBJ = *.o
+
+BONUS_OBJ = *.o
 
 CC = gcc
 
@@ -49,12 +53,21 @@ exe1: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
-bonus:
 
 empty: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME)
 	@echo "     - Done -"
+	
+bonus: 
+	@echo "     - Compiling $(BONUS_NAME)..." 
+	@${CC} $(FLAGS) $(SRCS_BONUS) -o $(BONUS_NAME)
+	@echo "- Compiled -"
+
+bexe: bonus
+	@echo "     - Executing $(BONUS_NAME)..."
+	@./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "wc -w" outfile
+
 
 leaks:all
 	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile

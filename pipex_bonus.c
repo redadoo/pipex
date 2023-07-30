@@ -3,18 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/07/26 16:31:32 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/30 16:31:02 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
+
+static void	creat_pipes(t_ppbx pipex)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipex.cmd_number - 1)
+	{
+		if (pipe(pipex.pipe + 2 * i) < 0)
+		{
+			perror("nee");
+			exit(0);
+		}
+		i++;
+	}
+}
 
 int main(int argc, char **argv, char **envp)
 {
 	int i;
+	int mpipe[2 * (argc - 4)];
 	t_ppbx pipex;
 
 	i = 0;
@@ -27,16 +44,13 @@ int main(int argc, char **argv, char **envp)
 	pipex.cmd_number = argc - 4;
 	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
 		exit_bonus(pipex, EXIT_FAILURE);
-	if (pipe(pipex.pipe) == -1)
-		exit_bonus(pipex, EXIT_FAILURE);
+	pipex.pipe = (int *)malloc(sizeof(int) * pipex.cmd_number);
+	if (!pipex.pipe)
+		perror("ERR_PIPE");
+	creat_pipes(pipex);
 	pipex.cmd = ft_split(argv[i + 2], ' ');
 	while (i < pipex.cmd_number)
-	{
-		exe_cmd_bonus(pipex, i, argv, envp);		
-		i++;
-	}
-	close(pipex.pipe[0]);
-	close(pipex.pipe[1]);
+ 		exe_cmd_bonus(pipex, i++, argv, envp);		
 	waitpid(-1, NULL, 0);
 }
 static void	sub_dup2(int zero, int first)
@@ -45,63 +59,47 @@ static void	sub_dup2(int zero, int first)
 	dup2(first, 1);
 }
 
-void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv,char **envp)
+char	*return_path(char *cmd, char**env)
 {
-	if (i == 0)
+	int		i;
+	char	**paths;
+	char	*cmd_path;
+
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "PATH", 4) != 0)
+		i++;
+	if (env[i] == NULL)
+		return (NULL);
+	paths = ft_split(env[i] + 5, ':');
+	i = 0;
+	while (paths[i])
 	{
-		pipex.pid = fork();
-		if (pipex.pid < 0)
-			exit_bonus(pipex,EXIT_FAILURE);
-		if (pipex.pid == 0)
-		{
-			sub_dup2(pipex.in_fd, pipex.pipe[1]);
-			close(pipex.pipe[0]);
-			pipex.cmd = ft_split(argv[i + 2], ' ');
-			pipex.cmd_path = return_path(pipex.cmd[0], envp);
-			execve(pipex.cmd_path, pipex.cmd, envp);
-		}
+		cmd_path = paths[i];
+		paths[i] = ft_strjoin(paths[i], "/");
+		i++;
 	}
-	else if (i % 2 != 0 && i < pipex.cmd_number - 1)
+	cmd_path = acces_command(cmd, paths);
+	return (cmd_path);
+}
+
+void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
+{
+	p.pid = fork();
+	if (!p.pid)
 	{
-		pipex.pid = fork();
-		if (pipex.pid < 0)
-			exit_bonus(pipex,EXIT_FAILURE);
-		if (pipex.pid == 0)
+		if (i == 0)
+			sub_dup2(p.in_fd, p.pipe[2 * i + 1]);
+		else if (i == p.cmd_number - 1)
+			sub_dup2(p.pipe[2 * i - 2], p.out_fd);
+		else
+			sub_dup2(p.pipe[2 * i - 2], p.pipe[2 * i + 1]);
+		close_pipes(p);
+		p.cmd = ft_split(argv[i + 2], ' ');
+		p.cmd_path = return_path(p.cmd[0], envp);
+		if (!p.cmd)
 		{
-			sub_dup2(pipex.pipe[1], pipex.pipe[0]);
-			pipex.cmd = ft_split(argv[i + 2], ' ');
-			pipex.cmd_path = return_path(pipex.cmd[0], envp);
-			execve(pipex.cmd_path, pipex.cmd, envp);
+			exit(1);
 		}
-	}
-	else if (i % 2 != 1 && i < pipex.cmd_number - 1)
-	{
-		pipex.pid = fork();
-		if (pipex.pid < 0)
-			exit_bonus(pipex,EXIT_FAILURE);
-		if (pipex.pid == 0)
-		{
-			sub_dup2(pipex.pipe[0], pipex.pipe[1]);
-			pipex.cmd = ft_split(argv[i + 2], ' ');
-			pipex.cmd_path = return_path(pipex.cmd[0], envp);
-			execve(pipex.cmd_path, pipex.cmd, envp);
-		}
-	}
-	else if (i == pipex.cmd_number - 1)
-	{
-		pipex.pid = fork();
-		if (pipex.pid < 0)
-			exit_bonus(pipex,EXIT_FAILURE);
-		if (pipex.pid == 0)
-		{
-			if (pipex.cmd_number % 2 != 0)
-				sub_dup2(pipex.pipe[1], pipex.out_fd);
-			else
-				sub_dup2(pipex.pipe[0], pipex.out_fd);
-			close(pipex.pipe[0]);
-			pipex.cmd = ft_split(argv[i + 2], ' ');
-			pipex.cmd_path = return_path(pipex.cmd[0], envp);
-			execve(pipex.cmd_path, pipex.cmd, envp);
-		}
+		execve(p.cmd_path, p.cmd, envp);
 	}
 }

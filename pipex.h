@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/07/26 16:24:00 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:49:17 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,6 @@ typedef struct s_pipex
 	char	*cmd1_path;
 	char	*cmd2_path;
 }	t_pipex;
-
-typedef struct s_ppbx
-{
-	int		in_fd;
-	int		out_fd;
-	int		pipe[2];
-	int		cmd_number;
-	pid_t	pid;
-	char	*filein;
-	char	*fileout;
-	char	**cmd;
-	char	*cmd_path;
-}	t_ppbx;
 
 void	exit_bonus(t_ppbx pipex, int status);
 void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv, char **envp);
