@@ -6,25 +6,19 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/02 15:01:57 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/02 19:20:34 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-BONUS_NAME = pipex_bonus
-
 SRCS = $(MAIN_SRC) $(LIBFT)
-
-SRCS_BONUS = pipex_bonus_utils.c pipex_bonus.c
 
 LIBFT  = libft/*.c
 
-MAIN_SRC = *.c
+MAIN_SRC = pipex.c pipex_utils.c
 
 OBJ = *.o
-
-BONUS_OBJ = *.o
 
 CC = gcc
 
@@ -64,13 +58,13 @@ bonus:
 	@${CC} $(FLAGS) $(SRCS_BONUS) $(LIBFT) -o $(BONUS_NAME)
 	@echo "- Compiled -"
 
-bexe: bonus
-	@echo "     - Executing $(BONUS_NAME)..."
-	@./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "grep inquired" "wc -w"  outfile
+bexe: all
+	@echo "     - Executing $(NAME)..."
+	@./$(NAME) deepthought "grep Now" "grep Deep" "wc -w" outfile
 
 
-leaks:bonus
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "grep inquired" "wc -w"  outfile
+leaks:all
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep Now" "grep Deep" outfile
 	@echo "     "
 	@echo "     "
 

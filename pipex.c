@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 15:15:22 by user              #+#    #+#             */
-/*   Updated: 2023/07/22 01:38:52 by edoardo          ###   ########.fr       */
+/*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
+/*   Updated: 2023/08/02 19:14:38 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,67 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex	pipex;
+	int		i;
+	t_ppbx	pipex;
 
-	if (argc != 5)
+	i = -1;
+	if (argc < 5)
+		return (0);
+	pipex.filein = argv[1];
+	pipex.fileout = argv[argc - 1];
+	pipex.in_fd = open(pipex.filein, O_RDONLY);
+	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
+	pipex.cmd_number = argc - 3;
+	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
+		exit_bonus(pipex, EXIT_FAILURE);
+	pipex.pipe = (int *)malloc(sizeof(int) * 2 * (pipex.cmd_number - 1));
+	if (!pipex.pipe)
+		perror("ERR_PIPE");
+	creat_pipes(pipex);
+	while (++i < pipex.cmd_number)
+		exe_cmd_bonus(pipex, i, argv, envp);
+	close_pipes(pipex);
+	waitpid(-1, NULL, 0);
+}
+
+static void	sub_dup2(int zero, int first)
+{
+	dup2(zero, 0);
+	dup2(first, 1);
+}
+
+void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
+{
+	p.pid = fork();
+	if (!p.pid)
 	{
-		write(2, "Error : Wrong number of arguments\n", 34);
-		exit(EXIT_FAILURE);
+		if (i == 0)
+			sub_dup2(p.in_fd, p.pipe[2 * i + 1]);
+		else if (i == p.cmd_number - 1)
+			sub_dup2(p.pipe[2 * i - 2], p.out_fd);
+		else
+			sub_dup2(p.pipe[2 * i - 2], p.pipe[2 * i + 1]);
+		close_pipes(p);
+		p.cmd = ft_split(argv[i + 2], ' ');
+		p.cmd_path = return_path(p.cmd[0], envp);
+		if (!p.cmd)
+			exit(1);
+		execve(p.cmd_path, p.cmd, envp);
 	}
-	if (!argv[2][0] || !argv[3][0])
+}
+
+void	creat_pipes(t_ppbx pipex)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipex.cmd_number - 1)
 	{
-		write(2, "Error : command not found\n", 26);
-		exit(EXIT_FAILURE);
+		if (pipe(pipex.pipe + 2 * i) < 0)
+		{
+			perror("nee");
+			exit(0);
+		}
+		i++;
 	}
-	pipex = init_pipex(pipex, argv, envp);
-	check_args(pipex);
-	execute_command(pipex, envp); 
-	exit_program(pipex, EXIT_SUCCESS);
 }

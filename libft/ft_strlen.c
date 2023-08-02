@@ -6,12 +6,11 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:33:27 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/02 14:56:02 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/02 19:15:38 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-#include "../pipex_bonus.h"
 
 int	ft_strlen(const char *s)
 {

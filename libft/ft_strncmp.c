@@ -6,12 +6,11 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 16:56:29 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/02 14:56:00 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/02 19:15:42 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-#include "../pipex_bonus.h"
 
 int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {

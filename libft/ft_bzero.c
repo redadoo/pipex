@@ -6,12 +6,11 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:05:36 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/02 14:56:12 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/02 19:14:51 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-#include "../pipex_bonus.h"
 
 void	ft_bzero(void *s, size_t n)
 {
