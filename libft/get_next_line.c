@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:17:29 by evocatur          #+#    #+#             */
-/*   Updated: 2023/06/09 10:04:44 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:56:14 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+#include "../pipex_bonus.h"
 
 char	*ft_statstr(int fd, char *statstr)
 {

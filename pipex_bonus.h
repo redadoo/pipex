@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/07/30 16:02:04 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/02 15:10:30 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -31,16 +30,14 @@ typedef struct s_ppbx
 	int		out_fd;
 	int		cmd_number;
 	pid_t	pid;
-	int 	*pipe;
+	int		*pipe;
 	char	*filein;
 	char	*fileout;
 	char	**cmd;
 	char	*cmd_path;
 }	t_ppbx;
 
-
-
-void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv,char **envp);
+void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv, char **envp);
 char	*return_path(char *cmd, char**env);
 void	exit_bonus(t_ppbx pipex, int status);
 char	**ft_split(const char *s, char c);
@@ -59,4 +56,6 @@ char	*ft_backup(char *backup);
 char	*ft_strchr(const char *s, int c);
 char	*ft_statstr(int fd, char *statstr);
 void	close_pipes(t_ppbx pipex);
+void	creat_pipes(t_ppbx pipex);
+
 #endif

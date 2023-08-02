@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:15:25 by user              #+#    #+#             */
-/*   Updated: 2023/07/28 09:49:17 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/02 15:02:25 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_pipex
 	char	*cmd2_path;
 }	t_pipex;
 
-void	exit_bonus(t_ppbx pipex, int status);
-void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv, char **envp);
 t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);
 void	exit_program(t_pipex pipex, int status);

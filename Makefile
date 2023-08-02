@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/07/28 17:28:54 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/02 15:01:57 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,19 +61,18 @@ empty: all
 	
 bonus: 
 	@echo "     - Compiling $(BONUS_NAME)..." 
-	@${CC} $(FLAGS) $(SRCS_BONUS) -o $(BONUS_NAME)
+	@${CC} $(FLAGS) $(SRCS_BONUS) $(LIBFT) -o $(BONUS_NAME)
 	@echo "- Compiled -"
 
 bexe: bonus
 	@echo "     - Executing $(BONUS_NAME)..."
-	@./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "wc -w" outfile
+	@./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "grep inquired" "wc -w"  outfile
 
 
-leaks:all
-	@leaks --atExit -- ./$(NAME) infile "ls -l" "wc -l" outfile
+leaks:bonus
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(BONUS_NAME) deepthought "grep Now" "grep Deep" "grep inquired" "wc -w"  outfile
 	@echo "     "
 	@echo "     "
-	@leaks --atExit -- ./$(NAME)
 
 clean: 
 	@${RM} ${OBJ}
