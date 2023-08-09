@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
+#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/02 19:20:34 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/09 11:28:51 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,21 +52,22 @@ empty: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME)
 	@echo "     - Done -"
-	
-bonus: 
-	@echo "     - Compiling $(BONUS_NAME)..." 
-	@${CC} $(FLAGS) $(SRCS_BONUS) $(LIBFT) -o $(BONUS_NAME)
-	@echo "- Compiled -"
 
 bexe: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) deepthought "grep Now" "grep Deep" "wc -w" outfile
 
 
-leaks:all
+vleaks:all
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep Now" "grep Deep" outfile
 	@echo "     "
 	@echo "     "
+
+xleaks:all
+	@leaks --atExit -- ./$(NAME) infile "ls -l" "grep rw" outfile
+
+norm:
+	@norminette $(SRC)
 
 clean: 
 	@${RM} ${OBJ}

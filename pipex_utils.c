@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/02 19:14:37 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/09 11:19:20 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@ void	exit_bonus(t_ppbx pipex, int status)
 {
 	char	*str;
 
-	while (*pipex.cmd)
+	if (pipex.cmd)
 	{
-		str = *pipex.cmd;
-		free(str);
-		pipex.cmd++;
+		while (*pipex.cmd)
+		{
+			str = *pipex.cmd;
+			free(str);
+			pipex.cmd++;
+		}
 	}
-	free(pipex.cmd_path);
+	if (pipex.cmd_path)
+		free(pipex.cmd_path);
 	if (status == EXIT_FAILURE)
 		perror("Error");
+	else if (status == 2)
+	{
+		perror("Error");
+		exit(0);
+	}
 	exit(status);
 }
 
