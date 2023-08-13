@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/09 11:16:58 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/13 15:39:54 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	main(int argc, char **argv, char **envp)
 
 	i = -1;
 	if (argc < 5)
+	{
+		printf("not enough arguments\n");
 		return (0);
+	}
 	pipex.filein = argv[1];
 	pipex.fileout = argv[argc - 1];
 	pipex.in_fd = open(pipex.filein, O_RDONLY);
@@ -28,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	pipex.cmd_number = argc - 3;
 	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
-		exit_bonus(pipex, EXIT_FAILURE);
+		exit_bonus(pipex, 3);
 	pipex.pipe = (int *)malloc(sizeof(int) * 2 * (pipex.cmd_number - 1));
 	if (!pipex.pipe)
 		perror("ERR_PIPE");

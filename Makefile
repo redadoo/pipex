@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
+#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/09 11:28:51 by evocatur         ###   ########.fr        #
+#    Updated: 2023/08/13 15:36:18 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ empty: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME)
 	@echo "     - Done -"
+	
+bonus: all
 
 bexe: all
 	@echo "     - Executing $(NAME)..."
@@ -63,12 +65,8 @@ vleaks:all
 	@echo "     "
 	@echo "     "
 
-xleaks:all
-	@leaks --atExit -- ./$(NAME) infile "ls -l" "grep rw" outfile
-
 norm:
 	@norminette $(SRC)
-
 clean: 
 	@${RM} ${OBJ}
 
