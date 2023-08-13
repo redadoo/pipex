@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/13 15:36:18 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/13 15:45:08 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ vleaks:all
 
 norm:
 	@norminette $(SRC)
+
 clean: 
 	@${RM} ${OBJ}
 
