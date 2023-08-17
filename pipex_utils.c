@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/13 15:39:33 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/17 19:10:52 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ void	exit_bonus(t_ppbx pipex, int status)
 {
 	char	*str;
 
+	if (status == 4)
+		printf("Not enough arguments\n");
 	if (status == 3)
-	{
-		perror("File error");
+		printf("File cannot be access\n");
+	if (status > 2)
 		exit(EXIT_FAILURE);
-	}
 	while (*pipex.cmd)
 	{
 		str = *pipex.cmd;

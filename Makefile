@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/13 15:45:08 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/17 19:10:43 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ bonus: all
 
 bexe: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) deepthought "grep Now" "grep Deep" "wc -w" outfile
+	@./$(NAME) deepthought "grep Now" "grep Deep Thought" "wc -w" outfile
 
 
 vleaks:all
@@ -67,6 +67,7 @@ vleaks:all
 
 norm:
 	@norminette $(SRC)
+	@norminette pipex.h
 
 clean: 
 	@${RM} ${OBJ}

@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/13 15:39:54 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/17 19:10:57 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	main(int argc, char **argv, char **envp)
 
 	i = -1;
 	if (argc < 5)
-	{
-		printf("not enough arguments\n");
-		return (0);
-	}
+		exit_bonus(pipex, 4);
 	pipex.filein = argv[1];
 	pipex.fileout = argv[argc - 1];
 	pipex.in_fd = open(pipex.filein, O_RDONLY);
