@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 13:19:35 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:29:48 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
 {
 	p.cmd = ft_split(argv[i + 2], ' ');
 	p.cmd_path = return_path(p.cmd[0], envp);
-	if (access(p.cmd_path,F_OK) == -1)
-		exit_bonus(p,5);
+	if (access(p.cmd_path, F_OK) == -1)
+		exit_bonus(p, 5);
 	p.pid = fork();
 	if (!p.pid)
 	{
