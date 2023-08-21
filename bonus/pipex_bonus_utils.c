@@ -6,13 +6,13 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 12:21:25 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:19:02 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static void	free_pipex(t_ppbx pipex)
+void	free_pipex(t_ppbx pipex)
 {
 	char	*str;
 
@@ -32,11 +32,18 @@ void	exit_bonus(t_ppbx pipex, int status)
 	if (status > 1)
 	{
 		if (status == 2)
-			perror("input file not found Error");
+			write(2, "input file not found error", 27);
 		else if (status == 4)
-			perror("not enough argument error");
+			write(2, "not enough argument error", 26);
+		else if (status == 5)
+		{
+			write(2, "command not found\n", 19);
+			free_pipex(pipex);
+			exit(EXIT_FAILURE);
+		}
 		else
-			perror("File permession error");
+			write(2, "File permession error", 22);
+		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	free_pipex(pipex);

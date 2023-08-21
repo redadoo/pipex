@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/08/21 11:41:55 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:44:34 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_statstr(int fd, char *statstr);
 void	close_pipes(t_ppbx pipex);
 void	creat_pipes(t_ppbx pipex);
+void	free_pipex(t_ppbx pipex);
 
 t_pipex	init_pipex(t_pipex pipex, char **argv, char **envp);
 void	check_args(t_pipex pipex);

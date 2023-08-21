@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 11:51:19 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:25:55 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv, char **envp)
 
 void	check_args(t_pipex pipex)
 {
+	if (access(pipex.cmd1_path,F_OK) == -1 || access(pipex.cmd2_path,F_OK) == -1 )
+		exit_program(pipex, EXIT_FAILURE);
 	if (pipex.in_fd == -1)
 		exit_program(pipex, EXIT_FAILURE);
 	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
