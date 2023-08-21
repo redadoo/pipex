@@ -3,20 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
+#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/17 19:10:43 by edoardo          ###   ########.fr        #
+#    Updated: 2023/08/21 11:52:26 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
+NAME_BONUS = pipex_bonus
+
 SRCS = $(MAIN_SRC) $(LIBFT)
+
+SRCS_BONUS = $(BONUS_SRC) $(LIBFT)
 
 LIBFT  = libft/*.c
 
-MAIN_SRC = pipex.c pipex_utils.c
+MAIN_SRC = src/pipex.c src/pipex_utils.c
+
+BONUS_SRC = bonus/pipex_bonus.c bonus/pipex_bonus_utils.c
 
 OBJ = *.o
 
@@ -36,7 +42,7 @@ $(NAME): $(OBJ)
 	
 $(OBJ): $(SRCS)
 	@echo "     - Making object files..." 
-	@${CC} -c $(SRCS)
+	@${CC} -c $(FLAGS) $(SRCS) bonus/pipex_bonus_utils.c
 
 exe: all
 	@echo "     - Executing $(NAME)..."
@@ -47,27 +53,23 @@ exe1: all
 	@echo "     - Executing $(NAME)..."
 	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
-
-empty: all
-	@echo "     - Executing $(NAME)..."
-	@./$(NAME)
-	@echo "     - Done -"
 	
-bonus: all
+pipex_bonus:
+	@echo "     - Making object files..." 
+	@${CC} -c $(SRCS_BONUS)
+	@echo "     - Compiling $(NAME) bonus..." 
+	@${CC} $(FLAGS) $(OBJ) -o $(NAME)
+	@echo "- Compiled -"
+	@${RM} $(OBJ)
 
-bexe: all
-	@echo "     - Executing $(NAME)..."
-	@./$(NAME) deepthought "grep Now" "grep Deep Thought" "wc -w" outfile
+leaks: all
+	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" outfile
 
-
-vleaks:all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep Now" "grep Deep" outfile
-	@echo "     "
-	@echo "     "
+bonus_leaks: all
+	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile
 
 norm:
-	@norminette $(SRC)
-	@norminette pipex.h
+	@norminette $(MAIN_SRC) $(SRCS_BONUS) pipex.h
 
 clean: 
 	@${RM} ${OBJ}
@@ -76,5 +78,7 @@ fclean: clean
 	@${RM} ${NAME}
 
 re: fclean all
+
+re_bonus: fclean pipex_bonus
 
 .PHONY: all clean fclean re

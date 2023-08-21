@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_bonus_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/17 19:10:52 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/21 11:49:09 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
-void	exit_bonus(t_ppbx pipex, int status)
+static void	free_pipex(t_ppbx pipex)
 {
 	char	*str;
 
-	if (status == 4)
-		printf("Not enough arguments\n");
-	if (status == 3)
-		printf("File cannot be access\n");
-	if (status > 2)
-		exit(EXIT_FAILURE);
 	while (*pipex.cmd)
 	{
 		str = *pipex.cmd;
@@ -29,6 +23,23 @@ void	exit_bonus(t_ppbx pipex, int status)
 		pipex.cmd++;
 	}
 	free(pipex.cmd_path);
+}
+
+void	exit_bonus(t_ppbx pipex, int status)
+{
+	char	*str;
+
+	if (status > 1)
+	{
+		if (status == 2)
+			perror("input file not found Error");
+		else if (status == 4)
+			perror("not enough argument error");
+		else
+			perror("File permession error");
+		exit(EXIT_FAILURE);
+	}
+	free_pipex(pipex);
 	if (status == EXIT_FAILURE)
 		perror("Error");
 	else if (status == 2)

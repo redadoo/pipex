@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/17 19:10:57 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/21 11:43:08 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,10 +23,10 @@ int	main(int argc, char **argv, char **envp)
 	pipex.filein = argv[1];
 	pipex.fileout = argv[argc - 1];
 	pipex.in_fd = open(pipex.filein, O_RDONLY);
-	if (pipex.in_fd == -1)
-		exit_bonus(pipex, 2);
 	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	pipex.cmd_number = argc - 3;
+	if (pipex.in_fd == -1)
+		exit_bonus(pipex, 2);
 	if (access(pipex.filein, R_OK) == -1 || access(pipex.fileout, W_OK) == -1)
 		exit_bonus(pipex, 3);
 	pipex.pipe = (int *)malloc(sizeof(int) * 2 * (pipex.cmd_number - 1));
