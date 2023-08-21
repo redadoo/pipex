@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/21 11:52:26 by evocatur         ###   ########.fr        #
+#    Updated: 2023/08/21 11:57:20 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ exe1: all
 	
 pipex_bonus:
 	@echo "     - Making object files..." 
-	@${CC} -c $(SRCS_BONUS)
+	@${CC} -c $(FLAGS) $(SRCS_BONUS)
 	@echo "     - Compiling $(NAME) bonus..." 
 	@${CC} $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "- Compiled -"

@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 11:43:08 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:22:53 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
 		p.cmd_path = return_path(p.cmd[0], envp);
 		if (!p.cmd)
 			exit(1);
-		execve(p.cmd_path, p.cmd, envp);
+		if (execve(p.cmd_path, p.cmd, envp) == -1)
+			exit_bonus(p, 1);
 	}
 }
 
@@ -74,7 +75,7 @@ void	creat_pipes(t_ppbx pipex)
 	{
 		if (pipe(pipex.pipe + 2 * i) < 0)
 		{
-			perror("nee");
+			perror("PIPE ERR");
 			exit(0);
 		}
 		i++;

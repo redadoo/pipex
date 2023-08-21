@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 11:49:09 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:21:25 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	exit_bonus(t_ppbx pipex, int status)
 		exit(EXIT_FAILURE);
 	}
 	free_pipex(pipex);
-	if (status == EXIT_FAILURE)
-		perror("Error");
-	else if (status == 2)
-	{
-		perror("Error");
-		exit(0);
-	}
 	exit(status);
 }
 
