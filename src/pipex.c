@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 13:29:32 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:19:58 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	exit_program(t_pipex pipex, int status)
 {
 	free_command(pipex.cmd1);
 	free_command(pipex.cmd2);
-	free(pipex.cmd1);
-	free(pipex.cmd2);
 	free(pipex.cmd1_path);
 	free(pipex.cmd2_path);
 	if (status == EXIT_FAILURE)
@@ -58,15 +56,14 @@ void	exit_program(t_pipex pipex, int status)
 
 void	free_command(char **cmd)
 {
-	char	*str;
 	int		i;
+	char	*str;
 
 	i = 0;
-	while (*cmd)
+	while (cmd[i])
 	{
-		i++;
-		str = *cmd;
+		str = cmd[i];
 		free(str);
-		cmd++;
+		i++;
 	}
 }

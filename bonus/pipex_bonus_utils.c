@@ -6,23 +6,29 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 13:19:02 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:32:31 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	free_pipex(t_ppbx pipex)
+void	free_pipex(char **cmd, char *path)
 {
+	int		i;
 	char	*str;
 
-	while (*pipex.cmd)
+	i = 0;
+	if (path)
+		free(path);
+	if (cmd)
 	{
-		str = *pipex.cmd;
-		free(str);
-		pipex.cmd++;
+		while (cmd[i])
+		{
+			str = cmd[i];
+			free(str);
+			i++;
+		}
 	}
-	free(pipex.cmd_path);
 }
 
 void	exit_bonus(t_ppbx pipex, int status)
@@ -38,7 +44,7 @@ void	exit_bonus(t_ppbx pipex, int status)
 		else if (status == 5)
 		{
 			write(2, "command not found\n", 19);
-			free_pipex(pipex);
+			free_pipex(pipex.cmd,pipex.cmd_path);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -46,8 +52,11 @@ void	exit_bonus(t_ppbx pipex, int status)
 		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
 	}
-	free_pipex(pipex);
-	exit(status);
+	else
+	{
+		free_pipex(pipex.cmd,pipex.cmd_path);
+		exit(status);
+	}
 }
 
 void	close_pipes(t_ppbx pipex)
@@ -99,5 +108,11 @@ char	*return_path(char *cmd, char**env)
 		i++;
 	}
 	cmd_path = acces_command(cmd, paths);
+	i = 0;
+	while (paths[i])
+	{
+		printf("%s\n",paths[i]);
+		i++;	
+	}
 	return (cmd_path);
 }
