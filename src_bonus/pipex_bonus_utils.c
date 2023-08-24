@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/24 07:50:32 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/24 14:26:51 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ void	exit_bonus(t_ppbx pipex, int status)
 	if (status > 1)
 	{
 		if (status == 2)
-			write(2, "input file not found error", 27);
+			write(2, "no such file or directory", 26);
 		else if (status == 4)
 			write(2, "not enough argument error", 26);
 		else if (status == 5)
 		{
 			write(2, "command not found\n", 19);
-			free_pipex(pipex.cmd,pipex.cmd_path);
+			free_pipex(pipex.cmd, pipex.cmd_path);
 			exit(EXIT_FAILURE);
 		}
 		else
 			write(2, "File permession error", 22);
-		write(2, "\n", 1);
+		write(1, "\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		free_pipex(pipex.cmd,pipex.cmd_path);
+		free_pipex(pipex.cmd, pipex.cmd_path);
 		exit(status);
 	}
 }

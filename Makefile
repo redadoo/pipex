@@ -6,13 +6,11 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/21 13:23:08 by evocatur         ###   ########.fr        #
+#    Updated: 2023/08/24 14:10:44 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-
-NAME_BONUS = pipex_bonus
 
 SRCS = $(MAIN_SRC) $(LIBFT)
 
@@ -22,7 +20,7 @@ LIBFT  = libft/*.c
 
 MAIN_SRC = src/pipex.c src/pipex_utils.c
 
-BONUS_SRC = bonus/pipex_bonus.c bonus/pipex_bonus_utils.c
+BONUS_SRC = src_bonus/pipex_bonus.c src_bonus/pipex_bonus_utils.c
 
 OBJ = *.o
 
@@ -42,7 +40,7 @@ $(NAME): $(OBJ)
 	
 $(OBJ): $(SRCS)
 	@echo "     - Making object files..." 
-	@${CC} -c $(FLAGS) $(SRCS) bonus/pipex_bonus_utils.c
+	@${CC} -c $(FLAGS) $(SRCS) src_bonus/pipex_bonus_utils.c
 
 exe: all
 	@echo "     - Executing $(NAME)..."
@@ -54,7 +52,7 @@ exe1: all
 	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
 	
-pipex_bonus:
+bonus:
 	@echo "     - Making object files..." 
 	@${CC} -c $(FLAGS) $(SRCS_BONUS)
 	@echo "     - Compiling $(NAME) bonus..." 
@@ -65,7 +63,7 @@ pipex_bonus:
 leaks: all
 	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" outfile
 
-bonus_leaks: all
+bonus_leaks: bonus
 	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile
 
 norm:
@@ -79,6 +77,6 @@ fclean: clean
 
 re: fclean all
 
-re_bonus: fclean pipex_bonus
+re_bonus: fclean bonus
 
 .PHONY: all clean fclean re
