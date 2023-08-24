@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 13:29:48 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/24 07:41:16 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	pipex.out_fd = open(pipex.fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	pipex.cmd_number = argc - 3;
 	check_error(pipex);
+	pipex.cmd_path = NULL;
 	pipex.pipe = (int *)malloc(sizeof(int) * 2 * (pipex.cmd_number - 1));
 	if (!pipex.pipe)
 		perror("ERR_PIPE");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/21 14:32:31 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/08/24 07:50:32 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_pipex(char **cmd, char *path)
 	char	*str;
 
 	i = 0;
-	if (path)
+	if (path != NULL)
 		free(path);
 	if (cmd)
 	{
@@ -77,9 +77,12 @@ char	*acces_command(char *cmd_name, char **paths)
 	int		i;
 	char	*cmd_path;
 
+	cmd_path = NULL;
 	i = 0;
 	while (paths[i])
 	{
+		if (cmd_path != NULL)
+			free(cmd_path);
 		cmd_path = ft_strjoin(paths[i], cmd_name);
 		if (access(cmd_path, X_OK) == 0)
 			break ;
@@ -109,10 +112,6 @@ char	*return_path(char *cmd, char**env)
 	}
 	cmd_path = acces_command(cmd, paths);
 	i = 0;
-	while (paths[i])
-	{
-		printf("%s\n",paths[i]);
-		i++;	
-	}
+	free(paths);
 	return (cmd_path);
 }

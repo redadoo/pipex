@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:33:05 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/17 19:10:59 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/08/24 07:31:20 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_split(const char *s, char c)
 	if (!s)
 		return (0);
 	i = 0;
-	newstr = (char **)ft_calloc(lens((char *)s, c), sizeof(char *));
+	newstr = (char **)calloc(lens((char *)s, c), sizeof(char *));
 	if (!newstr)
 		return (0);
 	while (*s)
