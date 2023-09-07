@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/09/07 08:12:30 by edoardo          ###   ########.fr        #
+#    Updated: 2023/09/14 15:09:51 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,10 +61,10 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile 
 
 bonus_leaks: bonus
-	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile 
 
 norm:
 	@norminette $(MAIN_SRC) $(SRCS_BONUS) pipex.h

@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/07 08:12:53 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:56:34 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*acces_command(char *cmd_name, char **paths)
 	return (cmd_path);
 }
 
-char	*return_path(char *cmd, char**env)
+char	*return_path(char *cmd, char **env)
 {
 	int		i;
 	char	**paths;
@@ -100,6 +100,10 @@ char	*return_path(char *cmd, char**env)
 	if (env[i] == NULL)
 		return (NULL);
 	paths = ft_split(env[i] + 5, ':');
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
 	i = 0;
 	while (paths[i])
 	{
