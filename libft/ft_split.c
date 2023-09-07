@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:33:05 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/14 12:10:23 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/09/14 15:15:24 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ char	**ft_split(char const *s, char c)
 			else
 				word_len = ft_strchr(s, c) - s;
 			lst[i++] = ft_substr(s, 0, word_len);
-/* 			printf("%s\n",lst[i]);
- */			s += word_len;
+			s += word_len;
 		}
 	}
 	lst[i] = NULL;

@@ -47,13 +47,10 @@ void	exit_program(t_pipex *pipex, int status)
 {
 	if (status == EXIT_FAILURE)
 		perror("Error");
-	free(pipex->cmd1_path);
-	free(pipex->cmd2_path);
-	free(pipex->filein);
-	free(pipex->fileout);
 	free_command(pipex->cmd1);
 	free_command(pipex->cmd2);
-	free(pipex->fileout);
+	free(pipex->cmd1_path);
+	free(pipex->cmd2_path);
 	free(pipex);
 	exit(status);
 }
