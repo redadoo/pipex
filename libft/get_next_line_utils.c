@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 10:16:28 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/24 07:36:50 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/09/06 22:57:15 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,33 @@ size_t	ft_strlen_t(const char *str)
 	return (count);
 }
 
-char	*ft_strjoin(char *backup, char *buff)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		len1;
+	int		len2;
 	char	*str;
 
-	if (!backup)
+	if (s1 && s2)
 	{
-		backup = (char *)malloc(1 * sizeof(char));
-		backup[0] = '\0';
+		len1 = ft_strlen(s1);
+		len2 = ft_strlen(s2);
+		str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+		if (str == NULL)
+			return (NULL);
+		i = -1;
+		while (s1[++i])
+			str[i] = s1[i];
+		i = -1;
+		while (s2[++i])
+		{
+			str[len1] = s2[i];
+			len1++;
+		}
+		str[len1] = '\0';
+		return (str);
 	}
-	if (!backup || !buff)
-		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(backup) + ft_strlen(buff)) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	if (backup)
-		while (backup[++i] != '\0')
-			str[i] = backup[i];
-	while (buff[j] != '\0')
-		str[i++] = buff[j++];
-	str[ft_strlen(backup) + ft_strlen(buff)] = '\0';
-	free(backup);
-	return (str);
+	return (NULL);
 }
 
 char	*ft_strchr(const char *s, int c)

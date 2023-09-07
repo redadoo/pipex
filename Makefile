@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
+#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/08/24 14:10:44 by evocatur         ###   ########.fr        #
+#    Updated: 2023/09/07 08:12:30 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" outfile
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile
 
 bonus_leaks: bonus
 	@leaks --atExit -- ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile

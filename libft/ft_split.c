@@ -6,55 +6,55 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 16:33:05 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/24 07:31:20 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/09/06 23:51:00 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static size_t	lens(char *str, char div)
+static size_t	ft_countword(char const *s, char c)
 {
-	size_t	i;
+	size_t	count;
 
-	i = 0;
-	while (*str)
-	{
-		if (*str != div)
-		{
-			++i;
-			while (*str && *str != div)
-				++str;
-		}
-		else
-			++str;
-	}
-	return (i + 1);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**newstr;
-	size_t	i;
-	size_t	j;
-
-	if (!s)
+	if (!*s)
 		return (0);
-	i = 0;
-	newstr = (char **)calloc(lens((char *)s, c), sizeof(char *));
-	if (!newstr)
-		return (0);
+	count = 0;
 	while (*s)
 	{
-		if (*s != c)
-		{
-			j = 0;
-			while (*s && *s != c && ++j)
-				++s;
-			newstr[i] = ft_substr(s - j, 0, j);
-			i++;
-		}
-		else
-			++s;
+		while (*s == c)
+			s++;
+		if (*s)
+			count++;
+		while (*s != c && *s)
+			s++;
 	}
-	return (newstr);
+	return (count);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**lst;
+	size_t	word_len;
+	int		i;
+
+	lst = (char **)malloc((ft_countword(s, c) + 1) * sizeof(char *));
+	if (!s || !lst)
+		return (0);
+	i = 0;
+	while (*s)
+	{
+		while (*s == c && *s)
+			s++;
+		if (*s)
+		{
+			if (!ft_strchr(s, c))
+				word_len = ft_strlen(s);
+			else
+				word_len = ft_strchr(s, c) - s;
+			lst[i++] = ft_substr(s, 0, word_len);
+			s += word_len;
+		}
+	}
+	lst[i] = NULL;
+	return (lst);
 }

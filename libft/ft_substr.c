@@ -27,7 +27,7 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 		start++;
 		i++;
 	}
-	newstr = (char *)ft_calloc(i + 1, sizeof(char));
+	newstr = (char *)malloc(i + 1 * sizeof(char));
 	if (!newstr)
 		return (newstr);
 	start = 0;
@@ -37,5 +37,6 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 		start++;
 		j++;
 	}
+	newstr[start] = '\0';
 	return (newstr);
 }
