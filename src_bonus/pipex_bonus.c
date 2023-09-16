@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 13:15:11 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:37:44 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
 	{
 		if (sub_dup2(i,p) == -1)
 		{
-			free_pipex(p.cmd, p.cmd_path);
+ 			free_pipex(p.cmd, p.cmd_path);
 			close_pipes(p);
 			exit(1);
 		}
 		else
 		{
-			close_pipes(p);
-			if (!p.cmd)
+ 			close_pipes(p);
+ 			if (!p.cmd)
 				exit(1);
 			execve(p.cmd_path, p.cmd, envp);
 		}
