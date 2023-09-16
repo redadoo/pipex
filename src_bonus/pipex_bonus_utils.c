@@ -100,10 +100,6 @@ char	*return_path(char *cmd, char **env)
 	if (env[i] == NULL)
 		return (NULL);
 	paths = ft_split(env[i] + 5, ':');
-/*  	i = -1;
- 	while (paths[++i])
-		free(paths[i]);
-	free(paths); */
 	i = 0;
 	while (paths[i])
 	{
@@ -113,8 +109,5 @@ char	*return_path(char *cmd, char **env)
 	}
 	cmd_path = acces_command(cmd, paths);
 	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
 	return (cmd_path);
 }

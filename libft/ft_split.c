@@ -51,8 +51,9 @@ char	**ft_split(char const *s, char c)
 				word_len = ft_strlen(s);
 			else
 				word_len = ft_strchr(s, c) - s;
-			lst[i++] = ft_substr(s, 0, word_len);
-			s += word_len;
+			lst[i] = ft_substr(s, 0, word_len);
+			s += word_len;  
+			i++;
 		}
 	}
 	lst[i] = NULL;
