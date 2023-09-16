@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 10:16:28 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 09:59:47 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:01:56 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,30 @@ size_t	ft_strlen_t(const char *str)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
+	char	*res;
 	int		i;
-	int		len1;
-	int		len2;
-	char	*str;
+	int		j;
 
-	if (!(s1 && s2))
+	if (!s1 || !s2)
+		return (0);
+	i = 0;
+	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!res)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	free(s1);
-	i = -1;
-	while (s2[++i])
+	while (s1[i])
 	{
-		str[len1] = s2[i];
-		len1++;
+		res[i] = s1[i];
+		i++;
 	}
-	str[len1] = '\0';
-	return (str);
+	j = 0;
+	while (s2[j])
+	{
+		res[i] = s2[j];
+		i++;
+		j++;
+	}
+	res[i] = 0;
+	return (res);
 }
 
 char	*ft_strchr(const char *s, int c)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
+#    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/09/14 15:09:51 by edoardo          ###   ########.fr        #
+#    Updated: 2023/09/16 13:08:35 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SRCS_BONUS = $(BONUS_SRC) $(LIBFT)
 
 LIBFT  = libft/*.c
 
-MAIN_SRC = src/pipex.c src/pipex_utils.c
+MAIN_SRC = src/pipex.c src/pipex_utils.c src/pipex_utils_1.c
 
-BONUS_SRC = src_bonus/pipex_bonus.c src_bonus/pipex_bonus_utils.c
+BONUS_SRC = src_bonus/pipex_bonus.c src_bonus/pipex_bonus_utils.c src/pipex_utils_1.c
 
 OBJ = *.o
 
@@ -49,7 +49,7 @@ exe: all
 
 exe1: all
 	@echo "     - Executing $(NAME)..."
-	@./$(NAME) deepthought "grep majesty" "wc -w" outfile
+	@./$(NAME) infile "grep majesty" "wc -w" outfile
 	@echo "     - Done -"
 	
 bonus:
@@ -61,10 +61,10 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile 
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) infile "ls -l" "grep rw" outfile
 
 bonus_leaks: bonus
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile 
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) infile "grep majesty" "wc -w" "wc -l" outfile
 
 norm:
 	@norminette $(MAIN_SRC) $(SRCS_BONUS) pipex.h

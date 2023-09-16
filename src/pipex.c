@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:57:26 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 09:57:37 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:30:37 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,4 @@ void	exit_program(t_pipex *pipex, int status)
 	free(pipex->cmd2_path);
 	free(pipex);
 	exit(status);
-}
-
-void	free_command(char **cmd)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	while (cmd[i])
-	{
-		str = cmd[i];
-		free(str);
-		i++;
-	}
-	free(cmd);
 }
