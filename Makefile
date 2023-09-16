@@ -6,7 +6,7 @@
 #    By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/09/16 15:38:54 by evocatur         ###   ########.fr        #
+#    Updated: 2023/09/16 16:14:30 by evocatur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,10 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@leaks --atExit -- ./$(NAME) infile "ls -l" "grep rw" outfile
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 bonus_leaks: bonus
-	@leaks --atExit -- ./$(NAME) infile "grep majesty" "wc -w" "wc -l" outfile
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) infile "grasdasasdep majesty" "wc -w" "wc -l" "ls -l" "grep rome" "wc -l" outfile
 
 norm:
 	@norminette $(MAIN_SRC) $(SRCS_BONUS) pipex.h
