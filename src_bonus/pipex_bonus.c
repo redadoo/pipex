@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 15:37:44 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/09/17 11:10:58 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,21 @@ static int	sub_dup2(int i, t_ppbx p)
 {
 	if (i == 0)
 	{
-		if(dup2(p.in_fd, 0) == -1)
+		if (dup2(p.in_fd, 0) == -1)
 			return (-1);
 		if (dup2(p.pipe[2 * i + 1], 1) == -1)
 			return (-1);
 	}
 	else if (i == p.cmd_number - 1)
 	{
-		if(dup2(p.pipe[2 * i - 2], 0) == -1)
+		if (dup2(p.pipe[2 * i - 2], 0) == -1)
 			return (-1);
 		if (dup2(p.out_fd, 1) == -1)
 			return (-1);
 	}
 	else
 	{
-		if(dup2(p.pipe[2 * i - 2], 0) == -1)
+		if (dup2(p.pipe[2 * i - 2], 0) == -1)
 			return (-1);
 		if (dup2(p.pipe[2 * i + 1], 1) == -1)
 			return (-1);
@@ -81,21 +81,22 @@ void	exe_cmd_bonus(t_ppbx p, int i, char **argv, char **envp)
 	p.cmd_path = return_path(p.cmd[0], envp);
 	if (access(p.cmd_path, R_OK) != 0)
 	{
+		close_pipes(p);
 		exit_bonus(p, 5);
 	}
 	p.pid = fork();
 	if (!p.pid)
 	{
-		if (sub_dup2(i,p) == -1)
+		if (sub_dup2(i, p) == -1)
 		{
- 			free_pipex(p.cmd, p.cmd_path);
+			free_pipex(p.cmd, p.cmd_path);
 			close_pipes(p);
 			exit(1);
 		}
 		else
 		{
- 			close_pipes(p);
- 			if (!p.cmd)
+			close_pipes(p);
+			if (!p.cmd)
 				exit(1);
 			execve(p.cmd_path, p.cmd, envp);
 		}

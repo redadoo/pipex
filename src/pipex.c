@@ -6,7 +6,7 @@
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:57:26 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 16:10:52 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/09/17 10:50:33 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_args(t_pipex *p)
 {
 	if (access(p->cmd1_path, F_OK) == -1 || access(p->cmd2_path, F_OK) == -1)
 	{
-		exit_program(p, EXIT_FAILURE);
+		exit_program(p, 4);
 	}
 	if (p->in_fd == -1)
 		exit_program(p, EXIT_FAILURE);
@@ -47,9 +47,10 @@ void	check_args(t_pipex *p)
 
 void	exit_program(t_pipex *pipex, int status)
 {
+	if (status == 4)
+		perror("Command doesn't work");
 	if (status == EXIT_FAILURE)
 		perror("Error");
-	
 	if (pipex->cmd1)
 		free_command(pipex->cmd1);
 	if (pipex->cmd2)
