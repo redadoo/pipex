@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/09/13 15:20:10 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/22 18:29:13 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_pipex
 char	*return_path(char *cmd, char**env);
 void	exe_cmd_bonus(t_ppbx pipex, int i, char**argv, char **envp);
 void	exit_bonus(t_ppbx pipex, int status);
+char	*ft_strdup(const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*acces_command(char *cmd_name, char **paths);
@@ -62,6 +63,7 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char *backup, char *buff);
 void	ft_bzero(void *s, size_t n);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 int		ft_strlen(const char *s);
 char	*ft_get_line(char *backup);

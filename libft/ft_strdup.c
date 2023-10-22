@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 11:34:48 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/22 18:29:49 by edoardo          ###   ########.fr       */
+/*   Created: 2023/01/25 12:07:24 by evocatur          #+#    #+#             */
+/*   Updated: 2023/10/22 18:26:28 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strdup(const char *s)
 {
-	unsigned char	*p;
+	int		i;
+	char	*newstr;
 
-	p = NULL;
-	p = (unsigned char *)b;
-	while (len--)
-	{
-		*p++ = (unsigned char)c;
-	}
-	return (b);
+	i = 0;
+	while (s[i])
+		i++;
+	i++;
+	newstr = (char *)malloc(i * sizeof(char));
+	if (newstr == NULL)
+		return ((char *) NULL);
+	ft_memcpy(newstr, s, i);
+	return (newstr);
 }

@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/09/14 15:09:51 by edoardo          ###   ########.fr        #
+#    Updated: 2023/10/22 18:23:12 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile 
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) assets/deepthought.txt grep\ Now exit\ 5 outs/test-08.txt
 
 bonus_leaks: bonus
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" "wc -l" outfile 

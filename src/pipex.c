@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	check_args(pipex);
 	execute_command(pipex, envp);
 	exit_program(pipex, EXIT_SUCCESS);
-	return (0);
+	return (1);
 }
 
 void	check_args(t_pipex *p)
