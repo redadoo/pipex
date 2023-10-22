@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/10/22 18:29:13 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/22 19:15:44 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	free_pipex(char **cmd, char *path);
 t_pipex	*init_pipex(char **argv, char **envp);
 void	check_args(t_pipex *p);
 void	exit_program(t_pipex *p, int status);
-void	free_command(char **cmd);
 void	execute_command(t_pipex *p, char **env);
 int		ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
@@ -99,5 +98,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	first_child(t_pipex *p, char **env);
 void	second_child(t_pipex *p, char **env);
 char	*acces_command(char *cmd_name, char **paths);
+char	*my_getenv(char *name, char **env);
+void	free_command(char **tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/22 18:30:20 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/22 19:15:07 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ void	free_pipex(char **cmd, char *path)
 	i = 0;
 	if (path != NULL)
 		free(path);
-	while (cmd[i])
-	{
-		str = cmd[i];
-		free(str);
-		i++;
-	}
+	if (cmd != NULL)
+		free_command(cmd);
 }
 
 void	exit_bonus(t_ppbx pipex, int status)
@@ -67,6 +63,7 @@ void	close_pipes(t_ppbx pipex)
 		i++;
 	}
 	free(pipex.pipe);
+	pipex.pipe = NULL;
 }
 
 char	*acces_command(char *cmd_name, char **paths)

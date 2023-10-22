@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex->c                                            :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/26 15:06:47 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/13 15:21:54 by edoardo          ###   ########.fr       */
+/*   Created: 2023/09/16 09:57:26 by evocatur          #+#    #+#             */
+/*   Updated: 2023/09/17 10:50:33 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	main(int argc, char **argv, char **envp)
 void	check_args(t_pipex *p)
 {
 	if (access(p->cmd1_path, F_OK) == -1 || access(p->cmd2_path, F_OK) == -1)
-		exit_program(p, EXIT_FAILURE);
+	{
+		exit_program(p, 4);
+	}
 	if (p->in_fd == -1)
 		exit_program(p, EXIT_FAILURE);
 	if (access(p->filein, R_OK) == -1 || access(p->fileout, W_OK) == -1)
@@ -45,27 +47,18 @@ void	check_args(t_pipex *p)
 
 void	exit_program(t_pipex *pipex, int status)
 {
+	if (status == 4)
+		perror("Command doesn't work");
 	if (status == EXIT_FAILURE)
 		perror("Error");
-	free_command(pipex->cmd1);
-	free_command(pipex->cmd2);
-	free(pipex->cmd1_path);
-	free(pipex->cmd2_path);
+	if (pipex->cmd1)
+		free_command(pipex->cmd1);
+	if (pipex->cmd2)
+		free_command(pipex->cmd2);
+	if (pipex->cmd1_path)
+		free(pipex->cmd1_path);
+	if (pipex->cmd2_path)
+		free(pipex->cmd2_path);
 	free(pipex);
 	exit(status);
-}
-
-void	free_command(char **cmd)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	while (cmd[i])
-	{
-		str = cmd[i];
-		free(str);
-		i++;
-	}
-	free(cmd);
 }
