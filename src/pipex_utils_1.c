@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:15:48 by evocatur          #+#    #+#             */
-/*   Updated: 2023/09/16 15:48:31 by evocatur         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:18:42 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,28 @@ char	*my_getenv(char *name, char **env)
 char	*return_path(char *cmd, char **env)
 {
 	int		i;
-	char	*exec;
-	char	**allpath;
-	char	*path_part;
-	char	**s_cmd;
-
+	char	**paths;
+	char	*cmd_path;
+	char 	*tmp;
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "PATH", 4) != 0)
+		i++;
+	if (env[i] == NULL)
+		return (NULL);
+	paths = ft_split(env[i] + 5, ':');
 	i = -1;
-	allpath = ft_split(my_getenv("PATH", env), ':');
-	s_cmd = ft_split(cmd, ' ');
-	while (allpath[++i])
+	while (paths[++i])
 	{
-		path_part = ft_strjoin(allpath[i], "/");
-		exec = ft_strjoin(path_part, s_cmd[0]);
-		free(path_part);
-		if (access(exec, F_OK | X_OK) == 0)
-		{
-			free_command(s_cmd);
-			free_command(allpath);
-			return (exec);
-		}
-		free(exec);
+		cmd_path = paths[i];
+		tmp = ft_strdup(paths[i]);
+		free(paths[i]);
+		paths[i] = ft_strjoin(tmp, "/");
+		free(tmp);
 	}
-	free_command(allpath);
-	free_command(s_cmd);
-	return (cmd);
+	cmd_path = acces_command(cmd, paths);
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
+	return (cmd_path);
 }
