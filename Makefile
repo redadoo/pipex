@@ -6,7 +6,7 @@
 #    By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/23 15:15:17 by user              #+#    #+#              #
-#    Updated: 2023/10/22 19:15:19 by edoardo          ###   ########.fr        #
+#    Updated: 2023/10/23 14:42:35 by edoardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ bonus:
 	@${RM} $(OBJ)
 
 leaks: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "grep majesty" "wc -w" outfile 
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) deepthought "luca" "wc " outfile 
 
 bonus_leaks: bonus
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) infile "grasdasasdep majesty" "wc -w" "wc -l" "ls -l" "grep rome" "wc -l" outfile 1 1 1 1
