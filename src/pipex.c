@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:57:26 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/23 14:47:21 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/24 13:50:59 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ int	main(int argc, char **argv, char **envp)
 
 void	check_args(t_pipex *p)
 {
-/* 	if (access(p->cmd1_path, F_OK) == -1 || access(p->cmd2_path, F_OK) == -1)
-	{
-		exit_program(p, 4);
-	} */
 	if (p->in_fd == -1)
 		exit_program(p, EXIT_FAILURE);
 	if (access(p->filein, R_OK) == -1 || access(p->fileout, W_OK) == -1)
@@ -47,8 +43,6 @@ void	check_args(t_pipex *p)
 
 void	exit_program(t_pipex *pipex, int status)
 {
-	if (status == 4)
-		perror("Command doesn't work");
 	if (status == EXIT_FAILURE)
 		perror("Error");
 	if (pipex->cmd1)
