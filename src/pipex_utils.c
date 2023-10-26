@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:46:40 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/22 19:14:27 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/26 17:26:38 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@ t_pipex	*init_pipex(char **argv, char **envp)
 	t_pipex	*pipex;
 
 	pipex = (t_pipex *)malloc(sizeof(t_pipex));
+	pipex->status = 0;
 	pipex->filein = argv[1];
 	pipex->fileout = argv[4];
 	pipex->cmd1 = ft_split(argv[2], ' ');
 	pipex->cmd2 = ft_split(argv[3], ' ');
 	pipex->in_fd = open(pipex->filein, O_RDONLY);
 	pipex->out_fd = open(pipex->fileout, O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	pipex->cmd1_path = return_path(pipex->cmd1[0], envp);
-	pipex->cmd2_path = return_path(pipex->cmd2[0], envp);
+
+	if (is_path(pipex->cmd1[0]) == 1)
+		pipex->cmd1_path = ft_strdup(pipex->cmd1[0]);
+	else
+		pipex->cmd1_path = return_path(pipex->cmd1[0], envp);
+	
+	if (is_path(pipex->cmd2[0]) == 1)
+		pipex->cmd2_path = ft_strdup(pipex->cmd2[0]);
+	else
+		pipex->cmd2_path = return_path(pipex->cmd2[0], envp);
+
 	return (pipex);
 }
 

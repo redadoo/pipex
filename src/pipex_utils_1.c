@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 11:15:48 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/22 19:36:57 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:48:52 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,17 @@ char	*my_getenv(char *name, char **env)
 		i++;
 	}
 	return (NULL);
+}
+
+int is_path(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+	{
+		if (str[i] == '/')
+			return 1;
+		i++;
+	}
+	return 0;
 }

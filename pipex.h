@@ -6,7 +6,7 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/10/22 19:15:44 by edoardo          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:58:47 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_pipex
 	char	**cmd2;
 	char	*cmd1_path;
 	char	*cmd2_path;
+	int		status;
 }	t_pipex;
 
 char	*return_path(char *cmd, char**env);
@@ -100,5 +101,5 @@ void	second_child(t_pipex *p, char **env);
 char	*acces_command(char *cmd_name, char **paths);
 char	*my_getenv(char *name, char **env);
 void	free_command(char **tab);
-
+int		is_path(char *str);
 #endif
