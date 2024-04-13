@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   streq.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:05:36 by evocatur          #+#    #+#             */
-/*   Updated: 2023/01/24 16:48:53 by evocatur         ###   ########.fr       */
+/*   Created: 2024/04/05 16:18:43 by evocatur          #+#    #+#             */
+/*   Updated: 2024/04/05 16:41:58 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+bool	streq(char *str1, char *str2)
 {
-	ft_memset(s, 0, n);
+	size_t	i;
+
+	if ((str1 && !str2) || (!str1 && str2))
+		return (false);
+	i = 0;
+	while (str1[i] || str2[i])
+	{
+		if (str1[i] != str2[i])
+			return (false);
+		i += 1;
+	}
+	return (true);
 }

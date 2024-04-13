@@ -6,13 +6,14 @@
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 09:49:10 by edoardo           #+#    #+#             */
-/*   Updated: 2023/10/26 16:58:47 by edoardo          ###   ########.fr       */
+/*   Updated: 2024/04/13 17:00:27 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include "libft/libft.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -62,11 +63,9 @@ int		ft_strncmp(const char *str1, const char *str2, size_t n);
 char	*acces_command(char *cmd_name, char **paths);
 char	*ft_substr(char const *s, unsigned int start, unsigned int len);
 void	*ft_calloc(size_t count, size_t size);
-char	*ft_strjoin(char *backup, char *buff);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
-int		ft_strlen(const char *s);
 char	*ft_get_line(char *backup);
 char	*get_next_line(int fd);
 char	*ft_get_line(char *backup);
@@ -81,7 +80,6 @@ t_pipex	*init_pipex(char **argv, char **envp);
 void	check_args(t_pipex *p);
 void	exit_program(t_pipex *p, int status);
 void	execute_command(t_pipex *p, char **env);
-int		ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 char	**ft_split(const char *s, char c);
@@ -91,7 +89,6 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len);
 void	*ft_calloc(size_t count, size_t size);
 char	*get_next_line(int fd);
 char	*ft_statstr(int fd, char *statstr);
-char	*ft_strjoin(char *backup, char *buff);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_backup(char *backup);
 char	*ft_get_line(char *backup);

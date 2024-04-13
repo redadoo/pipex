@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 {
@@ -20,14 +20,14 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 
 	i = 0;
 	j = start;
-	if (!s || len < 0)
+	if (!s)
 		return (NULL);
-	while ((int)start < ft_strlen(s) && s[start] != '\0' && i < len)
+	while ((size_t)start < ft_strlen(s) && s[start] != '\0' && i < len)
 	{
 		start++;
 		i++;
 	}
-	newstr = (char *)malloc((i + 1) * sizeof(char));
+	newstr = (char *)ft_calloc(i + 1, sizeof(char));
 	if (!newstr)
 		return (newstr);
 	start = 0;
@@ -37,6 +37,5 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 		start++;
 		j++;
 	}
-	newstr[start] = '\0';
 	return (newstr);
 }

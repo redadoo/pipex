@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:05:36 by evocatur          #+#    #+#             */
-/*   Updated: 2023/01/24 16:48:53 by evocatur         ###   ########.fr       */
+/*   Created: 2024/04/05 16:20:20 by evocatur          #+#    #+#             */
+/*   Updated: 2024/04/05 16:42:10 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+bool	is_spaces(char c)
 {
-	ft_memset(s, 0, n);
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (true);
+	return (false);
+}
+
+bool	only_spaces(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!is_spaces(str[i]))
+			return (false);
+		i += 1;
+	}
+	return (true);
 }

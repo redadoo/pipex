@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 11:33:27 by evocatur          #+#    #+#             */
-/*   Updated: 2023/08/02 19:15:38 by edoardo          ###   ########.fr       */
+/*   Created: 2023/11/24 16:42:10 by evocatur          #+#    #+#             */
+/*   Updated: 2023/11/24 22:17:50 by edoardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "libft.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 		i++;
 	return (i);
 }

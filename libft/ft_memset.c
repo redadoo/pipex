@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edoardo <edoardo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evocatur <evocatur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 11:34:48 by evocatur          #+#    #+#             */
-/*   Updated: 2023/10/22 18:29:49 by edoardo          ###   ########.fr       */
+/*   Created: 2024/04/03 17:27:25 by evocatur          #+#    #+#             */
+/*   Updated: 2024/04/03 17:27:25 by evocatur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
